@@ -3,14 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smorty <smorty@student.42.fr>              +#+  +:+       +#+         #
+#    By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/09/10 16:46:19 by smorty            #+#    #+#              #
-#    Updated: 2019/09/19 19:20:25 by smorty           ###   ########.fr        #
+#    Created: 2019/09/20 12:25:39 by dbrady            #+#    #+#              #
+#    Updated: 2019/09/20 15:40:00 by dbrady           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_ASM := asm
+
+NAME_VIS := vis
 
 NAME_GAME := corewar
 
@@ -22,13 +24,17 @@ LFT_DIR := $(SRC_DIR)/libft
 
 LFT_PRINTF_DIR := $(SRC_DIR)/ft_printf
 
-HEADERS_DIR := include $(LFT_DIR) $(LFT_PRINTF_DIR)/includes
+HEADERS_DIR := inc $(LFT_DIR) $(LFT_PRINTF_DIR)/includes
 
 SRC_ASM := asm.c read_input.c parse_file.c parse_title.c parse_label.c parse_opcode.c parse_parameter.c analyze_sizes.c assemble.c disassemble.c
 
 SRC_COREWAR :=
 
+SRC_VIS := cr_vis_control.c
+
 OBJ_ASM := $(SRC_ASM:.c=.o)
+
+OBJ_VIS := $(SRC_VIS:.c=.o)
 
 LFT := libft.a
 
@@ -43,13 +49,22 @@ vpath %.o $(OBJ_DIR)
 vpath %.h $(HEADERS_DIR)
 vpath %.a $(LFT_DIR) $(LFT_PRINTF_DIR)
 
-all: $(NAME_ASM)
+all: $(NAME_VIS) #$(NAME_ASM)
 
 $(NAME_ASM): $(LFT) $(LFT_PRINTF) $(OBJ_ASM)
 	@$(CC) $(addprefix $(OBJ_DIR)/, $(OBJ_ASM)) $(INCLUDE) -lft -L $(LFT_DIR) -lftprintf -L $(LFT_PRINTF_DIR) -o $@
 	@printf "\r\e[J\e[32m$@\e[0m done!\n\e[?25h"
 
 $(OBJ_ASM): %.o: %.c $(HEADERS)
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) -c $< $(addprefix -I,$(HEADERS_DIR)) -o $(OBJ_DIR)/$@
+	@printf "\r\e[?25l\e[Jcompiling \e[32m$(notdir $<)\e[0m"
+
+$(NAME_VIS): $(LFT) $(LFT_PRINTF) $(OBJ_VIS)
+	@$(CC) $(addprefix $(OBJ_DIR)/, $(OBJ_VIS)) $(INCLUDE) -lncurses -lft -L $(LFT_DIR) -lftprintf -L $(LFT_PRINTF_DIR) -o $@
+	@printf "\r\e[J\e[32m$@\e[0m done!\n\e[?25h"
+
+$(OBJ_VIS): %.o: %.c $(HEADERS)
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) -c $< $(addprefix -I,$(HEADERS_DIR)) -o $(OBJ_DIR)/$@
 	@printf "\r\e[?25l\e[Jcompiling \e[32m$(notdir $<)\e[0m"
