@@ -6,7 +6,7 @@
 #    By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/20 12:25:39 by dbrady            #+#    #+#              #
-#    Updated: 2019/09/20 15:40:00 by dbrady           ###   ########.fr        #
+#    Updated: 2019/09/21 17:57:16 by dbrady           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_ASM := asm.c read_input.c parse_file.c parse_title.c parse_label.c parse_opc
 
 SRC_COREWAR :=
 
-SRC_VIS := cr_vis_control.c
+SRC_VIS := cr_vis_buildmap.c cr_vis_control.c cr_vis_init.c cr_vis_main.c
 
 OBJ_ASM := $(SRC_ASM:.c=.o)
 
