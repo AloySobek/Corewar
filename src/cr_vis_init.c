@@ -6,23 +6,28 @@
 /*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 17:44:47 by dbrady            #+#    #+#             */
-/*   Updated: 2019/09/21 19:01:25 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/09/23 18:49:06 by dbrady           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/vis.h"
-#include "../inc/asm.h"
-#include "../inc/corewar.h"
-#include "../inc/op.h"
+#include "corewar.h"
 
-t_vis	*cr_vis_initvis(void)
+int		cr_vis_initvis(corewar_t *cr)
 {
 	t_vis *tmp;
 
 	tmp = (t_vis *)malloc(sizeof(t_vis));
 	ft_bzero(tmp, sizeof(t_vis));
-	tmp->pause = 1;
-	return (tmp);
+	tmp->flow = 0;
+	cr_vis_initterm();
+	cr_vis_initcolour();
+	tmp->field = (unsigned char *)malloc(MEM_SIZE);
+	ft_memmove(tmp->field, cr->arena->field, MEM_SIZE);
+	cr->vis = tmp;
+	cr_vis_drawborder();
+	cr_vis_printmap(cr->arena->field, MEM_SIZE, cr);
+	refresh();
+	return (0);
 }
 
 int		cr_vis_initcolour(void)
