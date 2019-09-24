@@ -6,7 +6,7 @@
 /*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 17:44:47 by dbrady            #+#    #+#             */
-/*   Updated: 2019/09/23 18:49:06 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/09/24 16:29:21 by dbrady           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		cr_vis_initvis(corewar_t *cr)
 	cr_vis_initcolour();
 	tmp->field = (unsigned char *)malloc(MEM_SIZE);
 	ft_memmove(tmp->field, cr->arena->field, MEM_SIZE);
+	tmp->fpsdiv = 420;
 	cr->vis = tmp;
 	cr_vis_drawborder();
 	cr_vis_printmap(cr->arena->field, MEM_SIZE, cr);
@@ -44,11 +45,12 @@ int		cr_vis_initterm(void)
 	system("printf '\033[8;68;260t'");
 	setlocale(LC_ALL, "");
 	initscr();
-	halfdelay(1);
+	cbreak();
+	nodelay(stdscr, TRUE);
+	// halfdelay(0);
 	keypad(stdscr, TRUE);
 	noecho();
 	curs_set(0);
 	start_color();
-	refresh();
 	return (0);
 }

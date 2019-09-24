@@ -6,7 +6,7 @@
 #    By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/20 12:25:39 by dbrady            #+#    #+#              #
-#    Updated: 2019/09/23 18:38:46 by dbrady           ###   ########.fr        #
+#    Updated: 2019/09/24 14:17:15 by dbrady           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_ASM := asm.c read_input.c parse_file.c parse_title.c parse_label.c parse_opc
 
 SRC_CORE := arena_manager.c game_on.c corewar.c error_manager.c memory_manager.c player_manager.c command_manager.c carriage_manager.c support_commands.c
 
-SRC_VIS := cr_vis_buildmap.c cr_vis_control.c cr_vis_init.c cr_vis_main.c cr_vis_updatemap.c
+SRC_VIS := cr_vis_buildmap.c cr_vis_control.c cr_vis_init.c cr_vis_main.c cr_vis_updatemap.c cr_vis_printinfo.c
 
 OBJ_ASM := $(SRC_ASM:.c=.o)
 

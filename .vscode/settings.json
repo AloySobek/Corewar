@@ -1,5 +1,16 @@
 {
 	"files.associations": {
-		"__locale": "c"
+		"__locale": "c",
+		"__config": "c",
+		"chrono": "c",
+		"ctime": "c",
+		"iterator": "c",
+		"locale": "c",
+		"*.tcc": "c",
+		"limits": "c",
+		"memory": "c",
+		"streambuf": "c",
+		"hashtable": "c",
+		"type_traits": "c"
 	}
 }

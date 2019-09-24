@@ -6,7 +6,7 @@
 /*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 16:56:17 by vrichese          #+#    #+#             */
-/*   Updated: 2019/09/23 19:27:22 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/09/24 14:22:47 by dbrady           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ void			here_we_go(corewar_t *game)
 	while (!game->vis->exit)
 	{
 		iter = 0;
-		cr_vis_keys(game->vis);
-		cr_vis_timer(game->vis);
-		// if ((game->vis->step || game->vis->flow) && game->vis->tick)
-		// {
+		cr_vis_main(game, V_CONTROL);
+		cr_vis_main(game, V_INFO);
+		if ((game->vis->step || game->vis->flow) && game->vis->tick)
+		{
 			while (iter < game->carriages_amount)
 			{
 				if (!game->carriages->waiting_time)
@@ -106,7 +106,7 @@ void			here_we_go(corewar_t *game)
 					game->carriages->current_location += game->carriages->next_command_location;
 					game->carriages->current_location %= MEM_SIZE;
 				}
-				cr_vis_updatemap(game);
+				cr_vis_main(game, V_UPDATE);
 				game->carriages = game->carriages->prev;
 				++iter;
 			}
@@ -115,7 +115,8 @@ void			here_we_go(corewar_t *game)
 				start_checking(game);
 			if (!game->carriages)
 				break;
-		// }
+		}
 	}
+	cr_vis_main(game, V_CLEANUP);
 	exit(1);
 }

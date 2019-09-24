@@ -6,7 +6,7 @@
 /*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 21:09:41 by vrichese          #+#    #+#             */
-/*   Updated: 2019/09/23 18:54:06 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/09/24 13:00:25 by dbrady           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ int				main(int argc, char **argv)
 	initialization_carriages	(game);
 	initialization_arena		(game);
 	initialization_commands		(game);
-	cr_vis_initvis(game);
+	cr_vis_main(game, V_INIT);
 	// while (!game->vis->exit)
-	// 	cr_vis_main(game);
-	// cr_vis_cleanup(game);
+	// 	cr_vis_main(game, V_UPDATE);
+	// cr_vis_main(game, V_CLEANUP);
 	here_we_go(game);
 	return (0);
 }
