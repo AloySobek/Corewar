@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 18:33:42 by vrichese          #+#    #+#              #
-#    Updated: 2019/11/02 19:25:49 by vrichese         ###   ########.fr        #
+#    Updated: 2019/11/03 20:14:29 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,13 @@ VM_SOURCE		:=		cw_carriage_object.c					\
 							cw_essence_init.c					\
 							cw_game_process.c					\
 						cw_callback.c							\
+						cw_scheduler_object.c					\
+							cw_scheduler_functions.c			\
+								cw_stack_object.c				\
+									cw_stack_functions.c		\
+								cw_queue_object.c				\
+									cw_queue_functions.c		\
 						cw_main.c
-						#cw_queue_object.c
-						#cw_stack_object.c
 
 VIS_SOURCE		:=		cr_vis_buildmap.c	\
 						cr_vis_control.c	\
@@ -53,15 +57,16 @@ VIS_SOURCE		:=		cr_vis_buildmap.c	\
 						cr_vis_welcomescr.c \
 
 
-VM_HEADERS		:=		cw_carriage_obj.h\
-						cw_command_obj.h\
-						cw_buffer_obj.h	\
-						cw_player_obj.h	\
-						cw_arena_obj.h	\
-						cw_game_obj.h	\
-						cw_stack_obj.h	\
-						cw_queue_obj.h	\
+VM_HEADERS		:=		cw_carriage_obj.h	\
+						cw_command_obj.h	\
+						cw_buffer_obj.h		\
+						cw_player_obj.h		\
+						cw_arena_obj.h		\
+						cw_game_obj.h		\
+						cw_stack_obj.h		\
+						cw_queue_obj.h		\
 						cw_obj_container.h	\
+						cw_scheduler_obj.h	\
 						corewar.h
 
 VIS_HEADER		:=		cr_vis.h
@@ -75,14 +80,17 @@ OBJ_WITH_DIR	:=		$(addprefix $(DIR_BIN), $(OBJ) $(VIS_OBJ))
 LIBFT			:=		libft.a
 LIBFTPRINTF		:=		libftprintf.a
 
-vpath %.c $(VM_DIR_SOURCE) $(VM_DIR_SOURCE)/game_obj		\
-							$(VM_DIR_SOURCE)/arena_obj		\
-							$(VM_DIR_SOURCE)/buffer_obj		\
-							$(VM_DIR_SOURCE)/callbacks		\
-							$(VM_DIR_SOURCE)/carriage_obj	\
-							$(VM_DIR_SOURCE)/command_obj	\
-							$(VM_DIR_SOURCE)/player_obj		\
-							$(VM_DIR_SOURCE)/rest
+vpath %.c $(VM_DIR_SOURCE)	$(VM_DIR_SOURCE)/game_obj						\
+							$(VM_DIR_SOURCE)/arena_obj						\
+							$(VM_DIR_SOURCE)/buffer_obj						\
+							$(VM_DIR_SOURCE)/callbacks						\
+							$(VM_DIR_SOURCE)/carriage_obj					\
+							$(VM_DIR_SOURCE)/command_obj					\
+							$(VM_DIR_SOURCE)/player_obj						\
+							$(VM_DIR_SOURCE)/scheduler_obj					\
+								$(VM_DIR_SOURCE)/scheduler_obj/stack_obj	\
+								$(VM_DIR_SOURCE)/scheduler_obj/queue_obj	\
+							$(VM_DIR_SOURCE)/rest							\
 vpath %.c $(VIS_DIR_SOURCE)
 vpath %.h $(VM_DIR_INCLUDE)
 vpath %.h $(VIS_DIR_INCLUDE)

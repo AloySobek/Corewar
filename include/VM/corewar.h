@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 13:55:06 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/02 18:52:29 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/03 19:53:35 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef enum				e_byte_blocks
 # define CW_INVALID_PLAYERS		9
 # define CW_KERNEL_ERROR		10
 
-# define CW_DESTRUCTOR			"Destructor"
 # define CW_GAME				"Game"
 # define CW_KEYS				"Keys"
 # define CW_PLAYER				"Player"
@@ -162,29 +161,24 @@ typedef enum				e_byte_blocks
 **------------------------------
 */
 
-void	live_exec	(t_corewar *game);
-void	ld_exec		(t_corewar *game);
-void	st_exec		(t_corewar *game);
-void	add_exec	(t_corewar *game);
-void	sub_exec	(t_corewar *game);
-void	and_exec	(t_corewar *game);
-void	or_exec		(t_corewar *game);
-void	xor_exec	(t_corewar *game);
-void	zjmp_exec	(t_corewar *game);
-void	ldi_exec	(t_corewar *game);
-void	sti_exec	(t_corewar *game);
-void	fork_exec	(t_corewar *game);
-void	lld_exec	(t_corewar *game);
-void	lldi_exec	(t_corewar *game);
-void	lfork_exec	(t_corewar *game);
-void	aff_exec	(t_corewar *game);
+void							live_exec	(t_corewar *game);
+void							ld_exec		(t_corewar *game);
+void							st_exec		(t_corewar *game);
+void							add_exec	(t_corewar *game);
+void							sub_exec	(t_corewar *game);
+void							and_exec	(t_corewar *game);
+void							or_exec		(t_corewar *game);
+void							xor_exec	(t_corewar *game);
+void							zjmp_exec	(t_corewar *game);
+void							ldi_exec	(t_corewar *game);
+void							sti_exec	(t_corewar *game);
+void							fork_exec	(t_corewar *game);
+void							lld_exec	(t_corewar *game);
+void							lldi_exec	(t_corewar *game);
+void							lfork_exec	(t_corewar *game);
+void							aff_exec	(t_corewar *game);
 
-void	cw_create_instance_command(t_command **pp_command_obj);
-void	cw_create_instance_carriage(t_carriage **pp_carriage_obj);
-void	cw_create_instance_buffer(t_buffer **pp_buffer_obj);
-void	cw_create_instance_arena(t_arena **pp_arena_obj);
-void	cw_create_instance_stack(t_stack **pp_stack_obj);
-void	cw_create_instance_queue(t_queue **pp_queue_obj);
-void	cw_error_catcher(int error_code, const char *section);
+void							cw_create_instance_carriage(t_carriage **pp_carriage_obj);
+void							cw_error_catcher(int error_code, const char *section);
 
 #endif

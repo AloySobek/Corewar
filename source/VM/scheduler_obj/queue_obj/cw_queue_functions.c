@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_queue_object.c                                  :+:      :+:    :+:   */
+/*   cw_queue_functions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/26 18:13:31 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/02 18:19:55 by vrichese         ###   ########.fr       */
+/*   Created: 2019/11/03 19:10:26 by vrichese          #+#    #+#             */
+/*   Updated: 2019/11/03 20:25:40 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-static int		cw_get_value(t_queue *p_queue_instance, int index)
-{
-	t_carriage	*iter;
-	int			tmp;
-
-	iter = p_queue_instance->p_current_carriage;
-	if (iter)
-	{
-		while (index--)
-			iter = iter->p_next;
-		tmp = iter->id;
-		return (tmp);
-	}
-	return (0);
-}
 
 static void		cw_print_content(t_queue *p_queue_instance)
 {
@@ -84,39 +68,47 @@ static void		cw_enqueue(t_queue *p_queue_instance, t_carriage *p_adding_carraige
 			p_queue_instance->p_current_carriage = p_adding_carraige;
 			p_queue_instance->p_current_carriage->p_next = p_adding_carraige;
 			p_queue_instance->p_current_carriage->p_prev = p_adding_carraige;
+			p_queue_instance->p_tail = p_adding_carraige;
+			p_queue_instance->p_head = p_adding_carraige;
 		}
 		else
 		{
-			p_adding_carraige->p_next = p_queue_instance->p_current_carriage;
-			p_adding_carraige->p_prev = p_queue_instance->p_current_carriage->p_prev;
-			p_queue_instance->p_current_carriage->p_prev->p_next = p_adding_carraige;
-			p_queue_instance->p_current_carriage->p_prev = p_adding_carraige;
+			if (p_adding_carraige->id < p_queue_instance->p_head->id)
+			{
+				p_adding_carraige->p_next = p_queue_instance->p_head;
+				p_adding_carraige->p_prev = p_queue_instance->p_head->p_prev;
+				p_queue_instance->p_head->p_prev->p_next = p_adding_carraige;
+				p_queue_instance->p_head->p_prev = p_adding_carraige;
+				p_queue_instance->p_head = p_adding_carraige;
+				p_queue_instance->p_current_carriage = p_queue_instance->p_head;
+			}
+			else if (p_adding_carraige->id > p_queue_instance->p_tail->id)
+			{
+				p_adding_carraige->p_next = p_queue_instance->p_tail;
+				p_adding_carraige->p_prev = p_queue_instance->p_tail->p_prev;
+				p_queue_instance->p_tail->p_prev->p_next = p_adding_carraige;
+				p_queue_instance->p_tail->p_prev = p_adding_carraige;
+				p_queue_instance->p_tail = p_adding_carraige;
+			}
+			else
+			{
+				while (p_queue_instance->p_current_carriage->id < p_adding_carraige->id)
+					p_queue_instance->p_current_carriage = p_queue_instance->p_current_carriage->p_next;
+				p_adding_carraige->p_next = p_queue_instance->p_current_carriage->p_next;
+				p_adding_carraige->p_prev = p_queue_instance->p_current_carriage;
+				p_queue_instance->p_current_carriage->p_next->p_prev = p_adding_carraige;
+				p_queue_instance->p_current_carriage->p_next = p_adding_carraige;
+				p_queue_instance->p_current_carriage = p_queue_instance->p_head;
+			}
 		}
 		p_queue_instance->size += 1;
 	}
 }
 
-static void		cw_constructor(t_queue **pp_queue_instance)
+extern void		cw_queue_functions_linker(t_queue *p_queue_instance)
 {
-	(*pp_queue_instance)->p_current_carriage = NULL;
-	(*pp_queue_instance)->size = 0;
-}
-
-static void		cw_destructor(t_queue **pp_queue_instance)
-{
-	free(*pp_queue_instance);
-	*pp_queue_instance = NULL;
-}
-
-extern void		cw_create_instance_queue(t_queue **pp_queue_obj)
-{
-	if (!(*pp_queue_obj = (t_queue *)malloc(sizeof(t_queue))))
-		cw_error_catcher(CW_NOT_ALLOCATED, "Queue object has not been created");
-	(*pp_queue_obj)->cw_constructor = cw_constructor;
-	(*pp_queue_obj)->cw_destructor = cw_destructor;
-	(*pp_queue_obj)->cw_enqueue = cw_enqueue;
-	(*pp_queue_obj)->cw_dequeue = cw_dequeue;
-	(*pp_queue_obj)->cw_peek = cw_peek;
-	(*pp_queue_obj)->cw_print_content = cw_print_content;
-	(*pp_queue_obj)->cw_constructor(pp_queue_obj);
+	p_queue_instance->cw_print_content = cw_print_content;
+	p_queue_instance->cw_enqueue = cw_enqueue;
+	p_queue_instance->cw_dequeue = cw_dequeue;
+	p_queue_instance->cw_peek = cw_peek;
 }

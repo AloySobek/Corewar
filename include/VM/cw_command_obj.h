@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:22:50 by vrichese          #+#    #+#             */
-/*   Updated: 2019/10/30 15:40:09 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/03 19:30:42 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct		s_command
 	void			(*cw_destructor)	(t_command **);
 }					t_command;
 
+void				cw_create_instance_command(t_command **pp_command_obj);
 void	cw_put_param(t_command *p_command_instance, int id, int first_arg, int second_arg, int third_arg, int dir_size, int change_carry, int waiting_time, int type_byte, void (*f)(t_corewar *));
 void	cw_recognize_command(t_command *p_command_instance, int command);
 

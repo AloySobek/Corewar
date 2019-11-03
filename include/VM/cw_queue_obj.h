@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 14:41:47 by vrichese          #+#    #+#             */
-/*   Updated: 2019/10/30 14:38:51 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/03 20:10:57 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct	s_queue
 	t_counter	size;
 
 	t_carriage	*p_current_carriage;
+	t_carriage	*p_tail;
+	t_carriage	*p_head;
 
 	void		(*cw_constructor)	(t_queue **);
 	void		(*cw_enqueue)		(t_queue *, t_carriage *);
@@ -32,5 +34,8 @@ typedef struct	s_queue
 	void		(*cw_print_content)	(t_queue *);
 	void		(*cw_destructor)	(t_queue **);
 }				t_queue;
+
+void			cw_create_instance_queue(t_queue **pp_queue_obj);
+void			cw_queue_functions_linker(t_queue *p_queue_instance);
 
 #endif

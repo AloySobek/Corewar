@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:07:10 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/02 16:29:00 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/03 19:29:31 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct		s_arena
 	void			(*cw_destructor)	(struct s_arena **);
 }					t_arena;
 
+void				cw_create_instance_arena(t_arena **pp_arena_obj);
 void				cw_arena_functions_linker(t_arena *p_arena_instance);
 
 #endif

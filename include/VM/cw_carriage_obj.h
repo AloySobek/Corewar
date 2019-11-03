@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:18:15 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/02 18:42:57 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/03 19:35:44 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct			s_carriage
 	int					wake_up;
 	int					offset;
 	int					checked;
+	int					nearest_cycle;
 
 	unsigned char		*p_registers;
 
@@ -64,22 +65,22 @@ typedef struct			s_carriage
 	void				(*cw_destructor)				(t_carriage **);
 }						t_carriage;
 
-void	cw_reg_check(t_carriage *p_carriage_instance, t_arena *p_arena_obj, int type, int *);
-void	cw_copy_reg(t_carriage *p_carriage_instance, t_carriage *p_copying_carriage);
-void	cw_write_owner_id_to_reg(t_carriage *p_carriage_instance);
-void	cw_check_carry(t_carriage *p_carriage_instance);
-void	cw_conversion_value_to_bytes(t_carriage *pCarraigeInstance, t_buffer *pBufferObj, int type);
-void	cw_conversion_bytes_to_value(t_carriage *pCarraigeInstance, t_buffer *pBufferObj, int type);
-void	cw_write_operation(t_carriage *p_carriage_instance, t_arena *p_arena_obj, t_buffer *pBufferObj, int inputArg);
-void	cw_read_operation(t_carriage *p_carriage_instance, t_arena *p_arena_obj, t_buffer *pBufferObj, int inputArg);
-void	cw_parse_types(t_carriage *p_carriage_instance, t_arena *p_arena_obj);
-void	cw_carriage_return(t_carriage *p_carriage_instance, int whereExactly);
-void	cw_move_to(t_carriage *pCarraigeInstance, int distance);
-void	cw_save_pos(t_carriage *p_carriage_instance, int whichExactly);
-void	cw_reduce_waiting_time(t_carriage *pCarraigeInstance);
-void	cw_exec_command(t_carriage *p_carriage_instance, t_corewar *p_game_instance);
-void	cw_set_t_commandime(t_carriage *p_carriage_instance, t_arena *pArenaInstance);
-void	cw_set_owner(t_carriage *p_carriage_instance, t_player *pPlayerList, int playersAmount);
-void	cw_skip_damaged_command(t_carriage *p_carriage_instance, t_arena *p_arena_obj);
+void					cw_reg_check(t_carriage *p_carriage_instance, t_arena *p_arena_obj, int type, int *);
+void					cw_copy_reg(t_carriage *p_carriage_instance, t_carriage *p_copying_carriage);
+void					cw_write_owner_id_to_reg(t_carriage *p_carriage_instance);
+void					cw_check_carry(t_carriage *p_carriage_instance);
+void					cw_conversion_value_to_bytes(t_carriage *pCarraigeInstance, t_buffer *pBufferObj, int type);
+void					cw_conversion_bytes_to_value(t_carriage *pCarraigeInstance, t_buffer *pBufferObj, int type);
+void					cw_write_operation(t_carriage *p_carriage_instance, t_arena *p_arena_obj, t_buffer *pBufferObj, int inputArg);
+void					cw_read_operation(t_carriage *p_carriage_instance, t_arena *p_arena_obj, t_buffer *pBufferObj, int inputArg);
+void					cw_parse_types(t_carriage *p_carriage_instance, t_arena *p_arena_obj);
+void					cw_carriage_return(t_carriage *p_carriage_instance, int whereExactly);
+void					cw_move_to(t_carriage *pCarraigeInstance, int distance);
+void					cw_save_pos(t_carriage *p_carriage_instance, int whichExactly);
+void					cw_reduce_waiting_time(t_carriage *pCarraigeInstance);
+void					cw_exec_command(t_carriage *p_carriage_instance, t_corewar *p_game_instance);
+void					cw_set_command_time(t_carriage *p_carriage_instance, t_arena *pArenaInstance);
+void					cw_set_owner(t_carriage *p_carriage_instance, t_player *pPlayerList, int playersAmount);
+void					cw_skip_damaged_command(t_carriage *p_carriage_instance, t_arena *p_arena_obj);
 
 #endif

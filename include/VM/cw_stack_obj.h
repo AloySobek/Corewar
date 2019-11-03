@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 19:20:19 by vrichese          #+#    #+#             */
-/*   Updated: 2019/10/30 14:39:50 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/03 17:33:17 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,20 @@ typedef struct	s_stack
 {
 	t_counter	size;
 
-	t_mark		max_carriage_number;
-	t_mark		current_waiting_time;
-	t_mark		min_carriage_waiting_time;
-
 	t_carriage	*p_current_carriage;
+	t_player	*p_current_player;
 
-	void		(*cw_constructor)	(t_stack **);
-	void		(*cw_push)			(t_stack *, t_carriage *);
-	void		(*cw_pop)			(t_stack *, t_carriage **);
-	void		(*cw_peek)			(t_stack *, t_carriage **);
-	void		(*cw_rotate)		(t_stack *, int);
-	void		(*cw_reverse_rotate)(t_stack *);
-	void		(*cw_print_content)	(t_stack *);
-	void		(*cw_distribute)	(t_stack *, t_queue *, t_arena *);
-	void		(*cw_reduce_w_t)	(t_stack *);
-	void		(*cw_destructor)	(t_stack **);
+	t_method	(*cw_constructor)	(t_stack **);
+	t_method	(*cw_push)			(t_stack *, t_carriage *, t_player *);
+	t_method	(*cw_pop)			(t_stack *, t_carriage **, t_player **);
+	t_method	(*cw_rotate)		(t_stack *);
+	t_method	(*cw_reverse_rotate)(t_stack *);
+	t_method	(*cw_peek)			(t_stack *, t_carriage **, t_player **);
+	t_method	(*cw_print_content)	(t_stack *);
+	t_method	(*cw_destructor)	(t_stack **);
 }				t_stack;
+
+void			cw_create_instance_stack(t_stack **pp_stack_obj);
+void			cw_stack_functions_linker(t_stack *p_stack_instance);
 
 #endif
