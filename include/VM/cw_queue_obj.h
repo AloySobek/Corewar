@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 14:41:47 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/03 20:10:57 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/04 19:13:48 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef struct	s_queue
 	void		(*cw_sort)			(t_queue *);
 	void		(*cw_reduce_time)	(t_queue *);
 	void		(*cw_exec)			(t_queue *);
+	void		(*cw_rotate)		(t_queue *);
 	void		(*cw_print_content)	(t_queue *);
+	void		(*cw_quant_enqueue)	(t_queue *, t_carriage *);
 	void		(*cw_destructor)	(t_queue **);
 }				t_queue;
 

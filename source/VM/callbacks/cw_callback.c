@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 19:45:28 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/03 20:13:18 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/04 19:42:59 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	live_exec(t_corewar *p_game_obj)
 	{
 		for (int i = 0; i < p_game_obj->players_amount; ++i)
 		{
-			if (p_game_obj->p_player_obj->id == -p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value)
-				p_game_obj->p_arena_obj->p_last_survivor = p_game_obj->p_player_obj;
-			p_game_obj->p_player_obj = p_game_obj->p_player_obj->p_next;
+			if (p_game_obj->p_scheduler->p_players_room->p_current_player->id == -p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value)
+				p_game_obj->p_arena_obj->p_last_survivor = p_game_obj->p_scheduler->p_players_room->p_current_player;
+			p_game_obj->p_scheduler->p_players_room->cw_rotate(p_game_obj->p_scheduler->p_players_room);
 		}
 		p_game_obj->p_arena_obj->p_last_survivor->live_amount += 1;
 	}
@@ -186,6 +186,8 @@ void	fork_exec(t_corewar *p_game_obj)
 	p_carriage_obj->p_owner = p_game_obj->p_carriage_obj->p_owner;
 	p_carriage_obj->id = ++p_game_obj->numerate_carriage;
 	p_carriage_obj->game_ref = p_game_obj->p_carriage_obj->game_ref;
+	p_carriage_obj->nearest_cycle = p_game_obj->p_arena_obj->cycle_amount + 1;
+	p_game_obj->p_scheduler->p_waiting_queue->cw_quant_enqueue(p_game_obj->p_scheduler->p_waiting_queue, p_carriage_obj);
 }
 
 void	lld_exec(t_corewar *p_game_obj)
@@ -233,6 +235,8 @@ void	lfork_exec(t_corewar *p_game_obj)
 	p_carriage_obj->p_owner = p_game_obj->p_carriage_obj->p_owner;
 	p_carriage_obj->id = ++p_game_obj->numerate_carriage;
 	p_carriage_obj->game_ref = p_game_obj->p_carriage_obj->game_ref;
+	p_carriage_obj->nearest_cycle = p_game_obj->p_arena_obj->cycle_amount + 1;
+	p_game_obj->p_scheduler->p_waiting_queue->cw_quant_enqueue(p_game_obj->p_scheduler->p_waiting_queue, p_carriage_obj);
 }
 
 void	aff_exec(t_corewar *p_game_obj)

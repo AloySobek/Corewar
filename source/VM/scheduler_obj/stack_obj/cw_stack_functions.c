@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 16:56:28 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/03 18:42:37 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:06:36 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		cw_print_content(t_stack *p_stack_instance)
 			for (int i = 0 ; i < CW_REG_NUMBER * CW_REG_SIZE; ++i)
 				ft_printf("%02x ", p_stack_instance->p_current_carriage->p_registers[i]);
 			ft_printf("\n");
-			p_stack_instance->p_current_carriage = p_stack_instance->p_current_carriage->p_next;
+			p_stack_instance->cw_rotate(p_stack_instance);
 		}
 	else
 		while (++iter < p_stack_instance->size)
@@ -34,7 +34,7 @@ static void		cw_print_content(t_stack *p_stack_instance)
 			p_stack_instance->p_current_player->p_name,
 			p_stack_instance->p_current_player->p_comment,
 			p_stack_instance->p_current_player->id);
-			p_stack_instance->p_current_player = p_stack_instance->p_current_player->p_next;
+			p_stack_instance->cw_rotate(p_stack_instance);
 		}
 }
 

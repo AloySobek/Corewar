@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 18:57:10 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/03 18:43:12 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/04 18:17:48 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	cw_constructor(t_carriage **pp_carriage_instance)
 	if (!((*pp_carriage_instance)->p_registers = (unsigned char *)malloc(sizeof(unsigned char) * (CW_REG_NUMBER * CW_REG_SIZE))))
 		cw_error_catcher(CW_NOT_ALLOCATED, CW_CARRIAGE);
 	ft_memset((*pp_carriage_instance)->p_registers, 0, CW_REG_NUMBER * CW_REG_SIZE);
+	(*pp_carriage_instance)->nearest_cycle = 1;
 }
 
 static void	cw_destructor(t_carriage **pp_carriage_instance)
@@ -43,7 +44,6 @@ extern void	cw_create_instance_carriage(t_carriage **pp_carriage_obj)
 	(*pp_carriage_obj)->cw_move_to = cw_move_to;
 	(*pp_carriage_obj)->cw_exec_command = cw_exec_command;
 	(*pp_carriage_obj)->cw_set_command_time = cw_set_command_time;
-	(*pp_carriage_obj)->cw_reduce_time = cw_reduce_waiting_time;
 	(*pp_carriage_obj)->cw_write_owner_id_to_reg = cw_write_owner_id_to_reg;
 	(*pp_carriage_obj)->cw_carriage_return = cw_carriage_return;
 	(*pp_carriage_obj)->cw_skip_damaged_command = cw_skip_damaged_command;
