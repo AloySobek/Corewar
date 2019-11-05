@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:54:06 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/03 18:54:41 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/05 18:21:49 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 static void	cw_constructor(t_scheduler **pp_scheduler_instance)
 {
-	(*pp_scheduler_instance)->nearest_cycle = 1;
+	;
 }
 
 static void	cw_destructor(t_scheduler **pp_scheduler_instance)
 {
-	(*pp_scheduler_instance)->cw_kill_processes(*pp_scheduler_instance);
+	int iter;
+
+	iter = CW_ITERATOR;
 	(*pp_scheduler_instance)->cw_kick_players(*pp_scheduler_instance);
-	(*pp_scheduler_instance)->p_distribution_stack->cw_destructor(&(*pp_scheduler_instance)->p_distribution_stack);
 	(*pp_scheduler_instance)->p_players_room->cw_destructor(&(*pp_scheduler_instance)->p_players_room);
-	(*pp_scheduler_instance)->p_execution_queue->cw_destructor(&(*pp_scheduler_instance)->p_execution_queue);
-	(*pp_scheduler_instance)->p_waiting_queue->cw_destructor(&(*pp_scheduler_instance)->p_waiting_queue);
+	while (++iter < SC_MAX_CYCLE_SUPPORT)
+		(*pp_scheduler_instance)->pa_timeline[iter]->cw_destructor(&(*pp_scheduler_instance)->pa_timeline[iter]);
 	free(*pp_scheduler_instance);
 	*pp_scheduler_instance = NULL;
 }

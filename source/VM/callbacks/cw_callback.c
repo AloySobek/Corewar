@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 19:45:28 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/04 19:42:59 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/05 17:31:50 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,9 +185,7 @@ void	fork_exec(t_corewar *p_game_obj)
 	p_carriage_obj->pp_command_container = p_game_obj->p_carriage_obj->pp_command_container;
 	p_carriage_obj->p_owner = p_game_obj->p_carriage_obj->p_owner;
 	p_carriage_obj->id = ++p_game_obj->numerate_carriage;
-	p_carriage_obj->game_ref = p_game_obj->p_carriage_obj->game_ref;
 	p_carriage_obj->nearest_cycle = p_game_obj->p_arena_obj->cycle_amount + 1;
-	p_game_obj->p_scheduler->p_waiting_queue->cw_quant_enqueue(p_game_obj->p_scheduler->p_waiting_queue, p_carriage_obj);
 }
 
 void	lld_exec(t_corewar *p_game_obj)
@@ -234,9 +232,7 @@ void	lfork_exec(t_corewar *p_game_obj)
 	p_carriage_obj->pp_command_container = p_game_obj->p_carriage_obj->pp_command_container;
 	p_carriage_obj->p_owner = p_game_obj->p_carriage_obj->p_owner;
 	p_carriage_obj->id = ++p_game_obj->numerate_carriage;
-	p_carriage_obj->game_ref = p_game_obj->p_carriage_obj->game_ref;
 	p_carriage_obj->nearest_cycle = p_game_obj->p_arena_obj->cycle_amount + 1;
-	p_game_obj->p_scheduler->p_waiting_queue->cw_quant_enqueue(p_game_obj->p_scheduler->p_waiting_queue, p_carriage_obj);
 }
 
 void	aff_exec(t_corewar *p_game_obj)

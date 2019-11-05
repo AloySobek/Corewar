@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:18:15 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/04 17:39:54 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/05 19:06:06 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 
 typedef struct			s_carriage
 {
-	int					id;
-	int					carry;
-	int					odometer;
-	int					save_point;
-	int					waiting_time;
-	int					addit_odometer;
+	t_mark				id;
+	t_mark				carry;
+	t_counter			odometer;
+	t_mark				save_point;
+	t_counter			waiting_time;
+	t_counter			addit_odometer;
 	int					last_speak_cycle;
 	int					addit_save_point;
 	int					current_location;
@@ -31,13 +31,16 @@ typedef struct			s_carriage
 	int					args;
 	int					wake_up;
 	int					offset;
-	int					checked;
 	int					nearest_cycle;
 
-	unsigned char		*p_registers;
+	int					balance_factor;
+	int					height;
+	int					key;
 
-	struct s_carriage	*p_next;
-	struct s_carriage	*p_prev;
+	t_byte				*p_registers;
+
+	struct s_carriage	*p_right;
+	struct s_carriage	*p_left;
 
 	t_command			**pp_command_container;
 	t_command			*p_current_command;

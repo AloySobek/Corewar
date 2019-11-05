@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:10:26 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/04 21:03:38 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/05 20:36:12 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,99 +17,78 @@ static void		cw_print_content(t_queue *p_queue_instance)
 	int			iter;
 
 	iter = CW_ITERATOR;
-	while (++iter < p_queue_instance->size)
+	;
+}
+
+static void		cw_right_rotate(t_queue *p_queue_instance, t_carriage *p_carriage_obj)
+{
+	t_carriage	*p_left;
+
+	if (p_queue_instance->p_root && p_queue_instance->p_root->p_left)
 	{
-		ft_printf("Carriage_id: %d\nNearest_cycle: %d\n",
-		p_queue_instance->p_current_carriage->id,
-		p_queue_instance->p_current_carriage->nearest_cycle);
-		ft_printf("Carriage_registers: ");
-		for (int i = 0 ; i < CW_REG_NUMBER * CW_REG_SIZE; ++i)
-			ft_printf("%02x ", p_queue_instance->p_current_carriage->p_registers[i]);
-		ft_printf("\n");
-		p_queue_instance->p_current_carriage = p_queue_instance->p_current_carriage->p_next;
+		p_left = p_queue_instance->p_root->p_left;
+		p_queue_instance->p_root->p_left = p_left->p_right;
+		p_left->p_right = p_queue_instance->p_root;
+		p_queue_instance->p_root = p_left;
 	}
 }
 
-static void		cw_peek(t_queue *p_queue_instance, t_carriage **p_peeking_carriage)
+static void		cw_left_rotate(t_queue *p_queue_instance, t_carriage *p_carriage_obj)
 {
-	if (p_peeking_carriage)
-		*p_peeking_carriage = p_queue_instance->p_current_carriage;
-}
+	t_carriage	*p_right;
 
-static void		cw_rotate(t_queue *p_queue_instance)
-{
-	if (p_queue_instance->p_current_carriage)
-		p_queue_instance->p_current_carriage = p_queue_instance->p_current_carriage->p_next;
-}
-
-static void		cw_dequeue(t_queue *p_queue_instance, t_carriage **p_deleting_carriage)
-{
-	t_carriage *kill_process;
-
-	if (p_queue_instance->p_current_carriage)
+	if (p_carriage_obj)
 	{
-		kill_process = p_queue_instance->p_current_carriage;
-		if (p_queue_instance->p_current_carriage == p_queue_instance->p_current_carriage->p_next)
-			p_queue_instance->p_current_carriage = NULL;
-		else
+		if (p_carriage_obj == p_queue_instance->p_root && p_queue_instance->p_root->p_right)
 		{
-			p_queue_instance->p_current_carriage->p_next->p_prev = p_queue_instance->p_current_carriage->p_prev;
-			p_queue_instance->p_current_carriage->p_prev->p_next = p_queue_instance->p_current_carriage->p_next;
-			p_queue_instance->p_current_carriage = p_queue_instance->p_current_carriage->p_next;
+			p_right = p_queue_instance->p_root->p_right;
+			p_queue_instance->p_root->p_right = p_right->p_left;
+			p_right->p_left = p_queue_instance->p_root;
+			p_queue_instance->p_root = p_right;
 		}
-		if (!p_deleting_carriage)
-			kill_process->cw_destructor(&kill_process);
-		else
-			*p_deleting_carriage = kill_process;
-		p_queue_instance->size -= 1;
+		else if (p_carriage_obj->p_right)
+		{
+			p_right = p_carriage_obj->p_right;
+			p_carriage_obj->p_right = p_right->p_left;
+			p_right->p_left = p_carriage_obj;
+		}
+}
+
+static void		cw_get_balance_factor(t_queue *p_queue_instance, t_carriage *p_carriage_obj)
+{
+	int			balance_factor;
+
+	balance_factor = 0;
+	if (p_carriage_obj)
+	{
+		balance_factor = p_queue_instance->cw_get_height(p_queue_instance, p_carriage_obj->p_right)
+		- p_queue_instance->cw_get_height(p_queue_instance, p_carriage_obj->p_left);
 	}
+	return (balance_factor);
 }
 
-static void		cw_quant_enqueue(t_queue *p_queue_instance, t_carriage *p_adding_carriage)
+static int		cw_get_height(t_queue *p_queue_instance, t_carriage *p_carriage_obj)
 {
-	int			iter;
+	return (p_carriage_obj ? p_carriage_obj->height : 0);
+}
 
-	iter = CW_ITERATOR;
-	if (p_adding_carriage)
+static void		cw_set_height(t_queue *p_queue_instance)
+{
+	t_tmp		left_height;
+	t_tmp		right_height;
+
+	left_height = p_queue_instance->cw_get_height(p_queue_instance, p_queue_instance->p_root->p_left);
+	right_height = p_queue_instance->cw_get_height(p_queue_instance, p_queue_instance->p_root->p_right);
+	p_queue_instance->p_root->height = (left_height > right_height ? left_height : right_height) + 1;
+}
+
+static void		cw_balance(t_queue *p_queue_instance)
+{
+	p_queue_instance->cw_set_height(p_queue_instance);
+	if (p_queue_instance->cw_get_balance_factor(p_queue_instance, p_queue_instance->p_root) == 2)
 	{
-		if (!p_queue_instance->p_current_carriage)
-		{
-			p_queue_instance->p_current_carriage = p_adding_carriage;
-			p_queue_instance->p_current_carriage->p_next = p_adding_carriage;
-			p_queue_instance->p_current_carriage->p_prev = p_adding_carriage;
-		}
-		else
-		{
-			if (p_adding_carriage->nearest_cycle < p_queue_instance->p_current_carriage->nearest_cycle)
-			{
-				p_adding_carriage->p_next = p_queue_instance->p_current_carriage;
-				p_adding_carriage->p_prev = p_queue_instance->p_current_carriage->p_prev;
-				p_queue_instance->p_current_carriage->p_prev->p_next = p_adding_carriage;
-				p_queue_instance->p_current_carriage->p_prev = p_adding_carriage;
-				p_queue_instance->p_current_carriage = p_adding_carriage;
-			}
-			else if (p_adding_carriage->nearest_cycle > p_queue_instance->p_current_carriage->p_prev->nearest_cycle)
-			{
-				p_adding_carriage->p_next = p_queue_instance->p_current_carriage;
-				p_adding_carriage->p_prev = p_queue_instance->p_current_carriage->p_prev;
-				p_queue_instance->p_current_carriage->p_prev->p_next = p_adding_carriage;
-				p_queue_instance->p_current_carriage->p_prev = p_adding_carriage;
-			}
-			else
-			{
-				p_queue_instance->p_head = p_queue_instance->p_current_carriage;
-				while (p_adding_carriage->nearest_cycle > p_queue_instance->p_current_carriage->nearest_cycle)
-					p_queue_instance->p_current_carriage = p_queue_instance->p_current_carriage->p_next;
-				while (p_adding_carriage->nearest_cycle == p_queue_instance->p_current_carriage->nearest_cycle && p_adding_carriage->id < p_queue_instance->p_current_carriage->id && ++iter <= p_queue_instance->size)
-					p_queue_instance->p_current_carriage = p_queue_instance->p_current_carriage->p_next;
-				p_adding_carriage->p_next = p_queue_instance->p_current_carriage;
-				p_adding_carriage->p_prev = p_queue_instance->p_current_carriage->p_prev;
-				p_queue_instance->p_current_carriage->p_prev->p_next = p_adding_carriage;
-				p_queue_instance->p_current_carriage->p_prev = p_adding_carriage;
-				p_queue_instance->p_current_carriage = p_queue_instance->p_head;
-			}
-		}
-		p_queue_instance->size += 1;
+		if (p_queue_instance->cw_get_balance_factor(p_queue_instance, p_queue_instance->p_root->p_right) < 0)
+
 	}
 }
 
@@ -117,50 +96,25 @@ static void		cw_enqueue(t_queue *p_queue_instance, t_carriage *p_adding_carriage
 {
 	if (p_adding_carriage)
 	{
-		if (!p_queue_instance->p_current_carriage)
+		if (!p_queue_instance->p_root)
 		{
-			p_queue_instance->p_current_carriage = p_adding_carriage;
-			p_queue_instance->p_current_carriage->p_next = p_adding_carriage;
-			p_queue_instance->p_current_carriage->p_prev = p_adding_carriage;
+			p_adding_carriage->p_right = NULL;
+			p_adding_carriage->p_left = NULL;
+			p_queue_instance->p_root = p_adding_carriage;
 		}
 		else
 		{
-			if (p_adding_carriage->id > p_queue_instance->p_current_carriage->id)
-			{
-				p_adding_carriage->p_next = p_queue_instance->p_current_carriage;
-				p_adding_carriage->p_prev = p_queue_instance->p_current_carriage->p_prev;
-				p_queue_instance->p_current_carriage->p_prev->p_next = p_adding_carriage;
-				p_queue_instance->p_current_carriage->p_prev = p_adding_carriage;
-				p_queue_instance->p_current_carriage = p_adding_carriage;
-			}
-			else if (p_adding_carriage->id < p_queue_instance->p_current_carriage->p_prev->id)
-			{
-				p_adding_carriage->p_next = p_queue_instance->p_current_carriage;
-				p_adding_carriage->p_prev = p_queue_instance->p_current_carriage->p_prev;
-				p_queue_instance->p_current_carriage->p_prev->p_next = p_adding_carriage;
-				p_queue_instance->p_current_carriage->p_prev = p_adding_carriage;
-			}
-			else
-			{
-				p_queue_instance->p_head = p_queue_instance->p_current_carriage;
-				while (p_adding_carriage->id < p_queue_instance->p_current_carriage->id)
-					p_queue_instance->p_current_carriage = p_queue_instance->p_current_carriage->p_next;
-				p_adding_carriage->p_next = p_queue_instance->p_current_carriage;
-				p_adding_carriage->p_prev = p_queue_instance->p_current_carriage->p_prev;
-				p_queue_instance->p_current_carriage->p_prev->p_next = p_adding_carriage;
-				p_queue_instance->p_current_carriage = p_queue_instance->p_head;
-			}
+			;
 		}
-		p_queue_instance->size += 1;
 	}
 }
 
 extern void		cw_queue_functions_linker(t_queue *p_queue_instance)
 {
 	p_queue_instance->cw_print_content = cw_print_content;
+	p_queue_instance->cw_right_rotate = cw_right_rotate;
+	p_queue_instance->cw_left_rotate = cw_left_rotate;
+	p_queue_instance->cw_set_height = cw_set_height;
+	p_queue_instance->cw_get_height = cw_get_height;
 	p_queue_instance->cw_enqueue = cw_enqueue;
-	p_queue_instance->cw_dequeue = cw_dequeue;
-	p_queue_instance->cw_peek = cw_peek;
-	p_queue_instance->cw_quant_enqueue = cw_quant_enqueue;
-	p_queue_instance->cw_rotate = cw_rotate;
 }
