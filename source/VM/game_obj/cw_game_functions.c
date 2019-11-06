@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:41:14 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/04 17:34:44 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:18:02 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ static void	cw_arrange_units_on_field(t_corewar *p_game_instance)
 
 	memoryStep = MEM_SIZE / p_game_instance->players_amount;
 	iter = CW_ITERATOR;
-	while (++iter < p_game_instance->p_scheduler->p_distribution_stack->size)
-	{
-		p_game_instance->p_scheduler->p_distribution_stack->cw_rotate(p_game_instance->p_scheduler->p_distribution_stack);
-		codeIter = CW_BEGIN_FROM_ZERO;
-		player_location = memoryStep * iter;
-		p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->current_location = player_location;
-		while (player_location < memoryStep * iter + CHAMP_MAX_SIZE)
-			p_game_instance->p_arena_obj->p_field[player_location++] = p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->p_code[codeIter++];
-	}
+	// while (++iter < p_game_instance->p_scheduler->p_distribution_stack->size)
+	// {
+	// 	p_game_instance->p_scheduler->p_distribution_stack->cw_rotate(p_game_instance->p_scheduler->p_distribution_stack);
+	// 	codeIter = CW_BEGIN_FROM_ZERO;
+	// 	player_location = memoryStep * iter;
+	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->current_location = player_location;
+	// 	while (player_location < memoryStep * iter + CHAMP_MAX_SIZE)
+	// 		p_game_instance->p_arena_obj->p_field[player_location++] = p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->p_code[codeIter++];
+	// }
 }
 
 static void	cw_congratulations(t_corewar *p_game_instance)
@@ -48,15 +48,15 @@ static void	cw_introduce_players(t_corewar *p_game_instance)
 
 	iter = CW_ITERATOR;
 	ft_printf("Introducing contestants...\n");
-	while (++iter < p_game_instance->carriages_amount)
-	{
-		p_game_instance->p_scheduler->p_distribution_stack->cw_reverse_rotate(p_game_instance->p_scheduler->p_distribution_stack);
-		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-		p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->id,
-		p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->code_size,
-		p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->p_name,
-		p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->p_comment);
-	}
+	// while (++iter < p_game_instance->carriages_amount)
+	// {
+	// 	p_game_instance->p_scheduler->p_distribution_stack->cw_reverse_rotate(p_game_instance->p_scheduler->p_distribution_stack);
+	// 	ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->id,
+	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->code_size,
+	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->p_name,
+	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->p_comment);
+	// }
 }
 
 static void	cw_free_all_commands(t_corewar *p_game_instance)

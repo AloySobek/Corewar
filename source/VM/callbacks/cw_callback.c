@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 19:45:28 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/05 17:31:50 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:19:04 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	live_exec(t_corewar *p_game_obj)
 {
-	p_game_obj->p_carriage_obj->cw_parse_types(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj);
-	if (p_game_obj->p_carriage_obj->error_ocurred) return ;
-	p_game_obj->p_carriage_obj->cw_read_operation(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj, p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1], p_game_obj->p_carriage_obj->args >> 6 & 0x03);
-	if (p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value <= -1 && p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value >= -4)
-	{
-		for (int i = 0; i < p_game_obj->players_amount; ++i)
-		{
-			if (p_game_obj->p_scheduler->p_players_room->p_current_player->id == -p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value)
-				p_game_obj->p_arena_obj->p_last_survivor = p_game_obj->p_scheduler->p_players_room->p_current_player;
-			p_game_obj->p_scheduler->p_players_room->cw_rotate(p_game_obj->p_scheduler->p_players_room);
-		}
-		p_game_obj->p_arena_obj->p_last_survivor->live_amount += 1;
-	}
-	p_game_obj->p_carriage_obj->last_speak_cycle = p_game_obj->p_arena_obj->cycle_amount;
-	p_game_obj->p_arena_obj->live_amount += 1;
+	;// p_game_obj->p_carriage_obj->cw_parse_types(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj);
+	// if (p_game_obj->p_carriage_obj->error_ocurred) return ;
+	// p_game_obj->p_carriage_obj->cw_read_operation(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj, p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1], p_game_obj->p_carriage_obj->args >> 6 & 0x03);
+	// if (p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value <= -1 && p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value >= -4)
+	// {
+	// 	for (int i = 0; i < p_game_obj->players_amount; ++i)
+	// 	{
+	// 		if (p_game_obj->p_scheduler->p_players_room->p_current_player->id == -p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value)
+	// 			p_game_obj->p_arena_obj->p_last_survivor = p_game_obj->p_scheduler->p_players_room->p_current_player;
+	// 		p_game_obj->p_scheduler->p_players_room->cw_rotate(p_game_obj->p_scheduler->p_players_room);
+	// 	}
+	// 	p_game_obj->p_arena_obj->p_last_survivor->live_amount += 1;
+	// }
+	// p_game_obj->p_carriage_obj->last_speak_cycle = p_game_obj->p_arena_obj->cycle_amount;
+	// p_game_obj->p_arena_obj->live_amount += 1;
 }
 
 void	ld_exec(t_corewar *p_game_obj)

@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 14:41:47 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/05 20:31:00 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:22:01 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ typedef struct	s_queue
 
 	t_player	*p_head;
 	t_carriage	*p_root;
+	t_carriage	*p_tree;
 
 	void		(*cw_constructor)		(t_queue **);
-	void		(*cw_enqueue)			(t_queue *, t_carriage *);
+	t_carriage	*(*cw_enqueue)			(t_queue *, t_carriage *, t_carriage *);
 	int			(*cw_get_height)		(t_queue *, t_carriage *);
 	int			(*cw_get_balance_factor)(t_queue *, t_carriage *);
-	void		(*cw_set_height)		(t_queue *);
-	void		(*cw_right_rotate)		(t_queue *);
-	void		(*cw_left_rotate)		(t_queue *);
+	void		(*cw_set_height)		(t_queue *, t_carriage *);
+	t_carriage	*(*cw_right_rotate)		(t_queue *, t_carriage *);
+	t_carriage	*(*cw_left_rotate)		(t_queue *, t_carriage *);
+	t_carriage	*(*cw_balance)			(t_queue *, t_carriage *);
 	void		(*cw_print_content)		(t_queue *);
 	void		(*cw_destructor)		(t_queue **);
 }				t_queue;

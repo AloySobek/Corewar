@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 18:33:42 by vrichese          #+#    #+#              #
-#    Updated: 2019/11/03 20:14:29 by vrichese         ###   ########.fr        #
+#    Updated: 2019/11/06 17:16:24 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,6 @@ VM_SOURCE		:=		cw_carriage_object.c					\
 						cw_callback.c							\
 						cw_scheduler_object.c					\
 							cw_scheduler_functions.c			\
-								cw_stack_object.c				\
-									cw_stack_functions.c		\
 								cw_queue_object.c				\
 									cw_queue_functions.c		\
 						cw_main.c
@@ -63,7 +61,6 @@ VM_HEADERS		:=		cw_carriage_obj.h	\
 						cw_player_obj.h		\
 						cw_arena_obj.h		\
 						cw_game_obj.h		\
-						cw_stack_obj.h		\
 						cw_queue_obj.h		\
 						cw_obj_container.h	\
 						cw_scheduler_obj.h	\
