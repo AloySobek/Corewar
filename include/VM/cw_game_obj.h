@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:15:38 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/05 19:08:41 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:10:37 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct			s_corewar
 	t_method			(*cw_player_obj_init)		(t_corewar *, int, char **);
 	t_method			(*cw_arena_obj_init)		(t_corewar *);
 	t_method			(*cw_free_all_commands)		(t_corewar *);
-	t_method			(*cw_arrange_units_on_field)(t_corewar *);
-	t_method			(*cw_introduce_players)		(t_corewar *);
+	t_method			(*cw_write_code_to_memory)	(t_corewar *, t_carriage *, int);
+	t_method			(*cw_introduce_players)		(t_corewar *, t_carriage *, int);
 	t_method			(*cw_congratulations)		(t_corewar *);
 	t_method			(*cw_main_checking)			(t_corewar *);
 	t_method			(*cw_start_game)			(t_corewar *);

@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:18:15 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 17:19:48 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 19:51:49 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct			s_carriage
 
 	struct s_carriage	*p_right;
 	struct s_carriage	*p_left;
-	struct s_carriage	*p_up;
 
 	t_command			**pp_command_container;
 	t_command			*p_current_command;

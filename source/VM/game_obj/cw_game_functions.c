@@ -6,30 +6,27 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:41:14 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 17:18:02 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:12:21 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	cw_arrange_units_on_field(t_corewar *p_game_instance)
+static void	cw_write_code_to_memory(t_corewar *p_game_instance, t_carriage *p_carriage_obj, int memory_step)
 {
-	int		iter;
 	int		player_location;
-	int		memoryStep;
-	int		codeIter;
+	int		code_iter;
 
-	memoryStep = MEM_SIZE / p_game_instance->players_amount;
-	iter = CW_ITERATOR;
-	// while (++iter < p_game_instance->p_scheduler->p_distribution_stack->size)
-	// {
-	// 	p_game_instance->p_scheduler->p_distribution_stack->cw_rotate(p_game_instance->p_scheduler->p_distribution_stack);
-	// 	codeIter = CW_BEGIN_FROM_ZERO;
-	// 	player_location = memoryStep * iter;
-	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->current_location = player_location;
-	// 	while (player_location < memoryStep * iter + CHAMP_MAX_SIZE)
-	// 		p_game_instance->p_arena_obj->p_field[player_location++] = p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->p_code[codeIter++];
-	// }
+	if (p_carriage_obj)
+	{
+		p_game_instance->cw_write_code_to_memory(p_game_instance, p_carriage_obj->p_left, memory_step);
+		code_iter = CW_ITERATOR;
+		player_location = memory_step * (p_carriage_obj->p_owner->id - 1);
+		p_carriage_obj->current_location = player_location;
+		while (player_location < memory_step * (p_carriage_obj->p_owner->id - 1) + CHAMP_MAX_SIZE)
+			p_game_instance->p_arena_obj->p_field[player_location++] = p_carriage_obj->p_owner->p_code[++code_iter];
+		p_game_instance->cw_write_code_to_memory(p_game_instance, p_carriage_obj->p_right, memory_step);
+	}
 }
 
 static void	cw_congratulations(t_corewar *p_game_instance)
@@ -42,21 +39,23 @@ static void	cw_congratulations(t_corewar *p_game_instance)
 		p_game_instance->p_arena_obj->p_last_survivor->p_name);
 }
 
-static void	cw_introduce_players(t_corewar *p_game_instance)
+static void	cw_introduce_players(t_corewar *p_game_instance, t_carriage *p_introducing_carriage, int level)
 {
 	int		iter;
 
 	iter = CW_ITERATOR;
-	ft_printf("Introducing contestants...\n");
-	// while (++iter < p_game_instance->carriages_amount)
-	// {
-	// 	p_game_instance->p_scheduler->p_distribution_stack->cw_reverse_rotate(p_game_instance->p_scheduler->p_distribution_stack);
-	// 	ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->id,
-	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->code_size,
-	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->p_name,
-	// 	p_game_instance->p_scheduler->p_distribution_stack->p_current_carriage->p_owner->p_comment);
-	// }
+	if (!level)
+		ft_printf("Introducing contestants...\n");
+	if (p_introducing_carriage)
+	{
+		p_game_instance->cw_introduce_players(p_game_instance, p_introducing_carriage->p_left, level + 1);
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+		p_introducing_carriage->p_owner->id,
+		p_introducing_carriage->p_owner->code_size,
+		p_introducing_carriage->p_owner->p_name,
+		p_introducing_carriage->p_owner->p_comment);
+		p_game_instance->cw_introduce_players(p_game_instance, p_introducing_carriage->p_right, level + 1);
+	}
 }
 
 static void	cw_free_all_commands(t_corewar *p_game_instance)
@@ -70,7 +69,7 @@ static void	cw_free_all_commands(t_corewar *p_game_instance)
 
 extern void	cw_game_functions_linker(t_corewar *p_game_instance)
 {
-	p_game_instance->cw_arrange_units_on_field	= cw_arrange_units_on_field;
+	p_game_instance->cw_write_code_to_memory	= cw_write_code_to_memory;
 	p_game_instance->cw_free_all_commands		= cw_free_all_commands;
 	p_game_instance->cw_introduce_players		= cw_introduce_players;
 	p_game_instance->cw_congratulations			= cw_congratulations;

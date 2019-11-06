@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:54:06 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 17:17:21 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:25:37 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	cw_destructor(t_scheduler **pp_scheduler_instance)
 
 	iter = CW_ITERATOR;
 	(*pp_scheduler_instance)->cw_kick_players(*pp_scheduler_instance);
-	(*pp_scheduler_instance)->p_players_room->cw_destructor(&(*pp_scheduler_instance)->p_players_room);
 	while (++iter < SC_MAX_CYCLE_SUPPORT)
 		(*pp_scheduler_instance)->pa_timeline[iter]->cw_destructor(&(*pp_scheduler_instance)->pa_timeline[iter]);
 	free(*pp_scheduler_instance);

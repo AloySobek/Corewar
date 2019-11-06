@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 14:41:47 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 18:22:01 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:25:40 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 
 typedef struct	s_queue
 {
-	t_counter	size;
+	t_corewar	*game_ref;
 
-	t_player	*p_head;
 	t_carriage	*p_root;
 	t_carriage	*p_tree;
 
@@ -30,6 +29,7 @@ typedef struct	s_queue
 	void		(*cw_set_height)		(t_queue *, t_carriage *);
 	t_carriage	*(*cw_right_rotate)		(t_queue *, t_carriage *);
 	t_carriage	*(*cw_left_rotate)		(t_queue *, t_carriage *);
+	t_method 	(*cw_exec_processes)	(struct s_queue *, t_carriage *);
 	t_carriage	*(*cw_balance)			(t_queue *, t_carriage *);
 	void		(*cw_print_content)		(t_queue *);
 	void		(*cw_destructor)		(t_queue **);

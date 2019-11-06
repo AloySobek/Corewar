@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:39:29 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 17:18:36 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:27:02 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ static void		cw_carriage_obj_init(t_corewar *p_game_instance)
 	int			iter;
 
 	iter = CW_ITERATOR;
-	// while (++iter < p_game_instance->players_amount)
-	// {
-	// 	cw_create_instance_carriage(&p_carriage_obj);
-	// 	p_carriage_obj->id = ++p_game_instance->carriages_amount;
-	// 	p_carriage_obj->pp_command_container = p_game_instance->pa_commands;
-	// 	p_carriage_obj->cw_set_owner(p_carriage_obj, p_game_instance->p_scheduler->p_players_room->p_current_player, p_game_instance->players_amount);
-	// 	p_carriage_obj->cw_write_owner_id_to_reg(p_carriage_obj);
-	// 	p_game_instance->p_scheduler->cw_insert_process(p_game_instance->p_scheduler, p_carriage_obj, 1);
-	// }
-	// p_game_instance->numerate_carriage = p_game_instance->carriages_amount;
+	while (++iter < p_game_instance->p_scheduler->players_amount)
+	{
+		cw_create_instance_carriage(&p_carriage_obj);
+		p_carriage_obj->id = ++p_game_instance->carriages_amount;
+		p_carriage_obj->pp_command_container = p_game_instance->pa_commands;
+		p_carriage_obj->cw_set_owner(p_carriage_obj, p_game_instance->p_scheduler->p_player_obj, p_game_instance->players_amount);
+		p_carriage_obj->cw_write_owner_id_to_reg(p_carriage_obj);
+		p_game_instance->p_scheduler->cw_insert_process(p_game_instance->p_scheduler, p_carriage_obj, 1);
+	}
+	p_game_instance->numerate_carriage = p_game_instance->carriages_amount;
 }
 
 static void		cw_keys_parse(t_corewar *p_game_instance, char **argv, int argc, int iter)
@@ -83,33 +83,33 @@ static void		cw_player_obj_init(t_corewar *p_game_instance, int argc, char **arg
 	standartId	= 0;
 	busyByte	= CW_ALL_FREE;
 	iter		= CW_BEGIN_FROM_ZERO;
-	// while (++iter < argc)
-	// 	if (*(argv[iter]) == CW_KEY)
-	// 	{
-	// 		p_game_instance->cw_keys_parse(p_game_instance, argv, argc, iter);
-	// 		if (p_game_instance->load_dump || p_game_instance->verbose || p_game_instance->visual_cycle || p_game_instance->custom_id)
-	// 			++iter;
-	// 	}
-	// 	else if (++p_game_instance->players_amount)
-	// 	{
-	// 		cw_create_instance_player		(&p_player_obj);
-	// 		p_player_obj->cw_read_file		(p_player_obj, argv[iter]);
-	// 		p_player_obj->cw_self_build		(p_player_obj);
-	// 		p_player_obj->cw_self_validate	(p_player_obj);
-	// 		if (p_game_instance->custom_id)
-	// 			p_player_obj->cw_set_id(p_player_obj, &busyByte, p_game_instance->custom_id, CW_TRUE);
-	// 		p_game_instance->p_scheduler->cw_insert_player(p_game_instance->p_scheduler, p_player_obj);
-	// 		p_game_instance->custom_id = 0;
-	// 	}
-	// if (p_game_instance->players_amount < 1 || p_game_instance->players_amount > 4)
-	// 	cw_error_catcher(CW_INVALID_PLAYERS, CW_PLAYER);
-	// iter = CW_ITERATOR;
-	// while (++iter < p_game_instance->p_scheduler->p_players_room->size)
-	// {
-	// 	if (!p_game_instance->p_scheduler->p_players_room->p_current_player->id)
-	// 		p_game_instance->p_scheduler->p_players_room->p_current_player->cw_set_id(p_game_instance->p_scheduler->p_players_room->p_current_player, &busyByte, 1, CW_FALSE);
-	// 	p_game_instance->p_scheduler->p_players_room->cw_rotate(p_game_instance->p_scheduler->p_players_room);
-	// }
+	while (++iter < argc)
+		if (*(argv[iter]) == CW_KEY)
+		{
+			p_game_instance->cw_keys_parse(p_game_instance, argv, argc, iter);
+			if (p_game_instance->load_dump || p_game_instance->verbose || p_game_instance->visual_cycle || p_game_instance->custom_id)
+				++iter;
+		}
+		else if (++p_game_instance->players_amount)
+		{
+			cw_create_instance_player		(&p_player_obj);
+			p_player_obj->cw_read_file		(p_player_obj, argv[iter]);
+			p_player_obj->cw_self_build		(p_player_obj);
+			p_player_obj->cw_self_validate	(p_player_obj);
+			if (p_game_instance->custom_id)
+				p_player_obj->cw_set_id(p_player_obj, &busyByte, p_game_instance->custom_id, CW_TRUE);
+			p_game_instance->p_scheduler->cw_insert_player(p_game_instance->p_scheduler, p_player_obj);
+			p_game_instance->custom_id = 0;
+		}
+	if (p_game_instance->players_amount < 1 || p_game_instance->players_amount > 4)
+		cw_error_catcher(CW_INVALID_PLAYERS, CW_PLAYER);
+	iter = CW_ITERATOR;
+	while (++iter < p_game_instance->p_scheduler->players_amount)
+	{
+		if (!p_game_instance->p_scheduler->p_player_obj->id)
+			p_game_instance->p_scheduler->p_player_obj->cw_set_id(p_game_instance->p_scheduler->p_player_obj, &busyByte, 1, CW_FALSE);
+		p_game_instance->p_scheduler->p_player_obj = p_game_instance->p_scheduler->p_player_obj->p_next;
+	}
 }
 
 static void		cw_scheduler_init(t_corewar *p_game_instance)
@@ -117,7 +117,7 @@ static void		cw_scheduler_init(t_corewar *p_game_instance)
 	t_scheduler	*p_scheduler;
 
 	cw_create_instance_scheduler(&p_scheduler);
-	p_scheduler->cw_queues_init(p_scheduler);
+	p_scheduler->cw_queues_init(p_scheduler, p_game_instance);
 	p_game_instance->p_scheduler = p_scheduler;
 }
 

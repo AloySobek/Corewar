@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:10:26 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 19:23:41 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 21:24:57 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@ static void		cw_print_content(t_queue *p_queue_instance)
 	int			iter;
 
 	iter = CW_ITERATOR;
+}
+
+static void			cw_exec_processes(t_queue *p_queue_instance, t_carriage *p_root)
+{
+	if (p_root)
+	{
+		p_queue_instance->cw_exec_processes(p_queue_instance, p_root->p_left);
+	}
 }
 
 static t_carriage	*cw_right_rotate(t_queue *p_queue_instance, t_carriage *p_carriage_obj)
@@ -100,16 +108,13 @@ static t_carriage	*cw_enqueue(t_queue *p_queue_instance, t_carriage *p_root, t_c
 		if (p_root)
 		{
 			if (p_adding_carriage->id < p_root->id)
-			{
 				p_root->p_left = p_queue_instance->cw_enqueue(p_queue_instance, p_root->p_left, p_adding_carriage);
-				p_root->p_left->p_up = p_root;
 			else
 				p_root->p_right = p_queue_instance->cw_enqueue(p_queue_instance, p_root->p_right, p_adding_carriage);
 			return (p_queue_instance->cw_balance(p_queue_instance, p_root));
 		}
 		else
 		{
-			p_adding_carriage->p_up = NULL;
 			p_adding_carriage->p_right = NULL;
 			p_adding_carriage->p_left = NULL;
 			return (p_queue_instance->cw_balance(p_queue_instance, p_adding_carriage));
@@ -129,4 +134,5 @@ extern void		cw_queue_functions_linker(t_queue *p_queue_instance)
 	p_queue_instance->cw_enqueue = cw_enqueue;
 	p_queue_instance->cw_balance = cw_balance;
 	p_queue_instance->cw_get_balance_factor = cw_get_balance_factor;
+	p_queue_instance->cw_exec_processes = cw_exec_processes;
 }
