@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:10:26 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 18:52:20 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/06 19:23:41 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,8 @@ static t_carriage	*cw_enqueue(t_queue *p_queue_instance, t_carriage *p_root, t_c
 			{
 				p_root->p_left = p_queue_instance->cw_enqueue(p_queue_instance, p_root->p_left, p_adding_carriage);
 				p_root->p_left->p_up = p_root;
-			}
 			else
-			{
 				p_root->p_right = p_queue_instance->cw_enqueue(p_queue_instance, p_root->p_right, p_adding_carriage);
-				p_root->p_right->p_up = p_root;
-			}
 			return (p_queue_instance->cw_balance(p_queue_instance, p_root));
 		}
 		else
