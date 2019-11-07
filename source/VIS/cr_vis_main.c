@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_vis_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 12:31:47 by dbrady            #+#    #+#             */
-/*   Updated: 2019/10/31 17:30:22 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/11/07 20:47:22 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int		cr_vis_main(t_corewar *cr, int action)
 		cr_vis_timer(cr);
 		cr_vis_keys(cr);
 	}
-	else if (action == V_UPDATE && cr->p_arena_obj->cycle_amount >= cr->visual_cycle && cr->p_carriage_obj)
+	else if (action == V_UPDATE && cr->p_arena_obj->cycle >= cr->visual_cycle && cr->p_carriage_obj)
 	{
 		cr_vis_updatemap(cr);
 		cr->vis->step = 0;
 		cr->vis->tick = 0;
 	}
-	if (cr->vis && cr->p_arena_obj->cycle_amount >= cr->visual_cycle && cr->p_carriage_obj)
+	if (cr->vis && cr->p_arena_obj->cycle >= cr->visual_cycle && cr->p_carriage_obj)
 	{
 		cr_vis_printinfo(cr);
 		refresh();

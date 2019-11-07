@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 13:22:52 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/05 17:31:31 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/07 20:56:15 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		cw_time_to_check(t_arena *p_arena_instance, int last_check)
 {
-	if (AR_CYCLE_TO_DIE <= 0 || AR_CYCLE_AMOUNT - last_check == AR_CYCLE_TO_DIE)
+	if (AR_CYCLE_TO_DIE_I <= 0 || AR_CYCLE_I - last_check == AR_CYCLE_TO_DIE_I)
 		return (CW_TRUE);
 	else
 		return (CW_FALSE);
@@ -30,7 +30,7 @@ static void		cw_print_field(t_arena *p_arena_instance)
 	ft_printf("0x0000 : ");
 	while (++iter < MEM_SIZE)
 	{
-		ft_printf("%.2x ", AR_FIELD[iter]);
+		ft_printf("%.2x ", AR_FIELD_I[iter]);
 		if ((iter + 1) % border == 0 && iter != MEM_SIZE - 1)
 			ft_printf("\n%#06x : ", iter + 1);
 	}
@@ -47,7 +47,7 @@ static void		cw_buffer_init(t_arena *p_arena_instance)
 	while (++buf_iter < CW_BUFFER_AMOUNT)
 	{
 		cw_create_instance_buffer(&buffer_obj);
-		AR_BUFFERS[buf_iter] = buffer_obj;
+		AR_BUFFERS_I[buf_iter] = buffer_obj;
 	}
 }
 

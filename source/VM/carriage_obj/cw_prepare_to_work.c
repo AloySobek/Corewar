@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:18:37 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/05 17:23:18 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/07 20:47:22 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	cw_exec_command(t_carriage *p_carriage_instance, t_corewar *p_game_instance
 	if (!p_carriage_instance->p_current_command)
 	{
 		p_carriage_instance->cw_move_to(p_carriage_instance, 1);
-		p_carriage_instance->nearest_cycle = p_game_instance->p_arena_obj->cycle_amount + 1;
+		p_carriage_instance->nearest_cycle = p_game_instance->p_arena_obj->cycle + 1;
 	}
-	else if (p_carriage_instance->nearest_cycle == p_game_instance->p_arena_obj->cycle_amount)
+	else if (p_carriage_instance->nearest_cycle == p_game_instance->p_arena_obj->cycle)
 	{
 		p_carriage_instance->p_current_command->cw_callback(p_game_instance);
 		p_carriage_instance->p_current_command = NULL;
 		p_carriage_instance->waiting_time = 0;
-		p_carriage_instance->nearest_cycle = p_game_instance->p_arena_obj->cycle_amount + 1;
+		p_carriage_instance->nearest_cycle = p_game_instance->p_arena_obj->cycle + 1;
 	}
 }
 
@@ -33,7 +33,7 @@ void	cw_set_command_time(t_carriage *p_carriage_instance, t_arena *pArenaInstanc
 	if (p_carriage_instance->p_current_command || pArenaInstance->p_field[p_carriage_instance->current_location] < CW_LIVE || pArenaInstance->p_field[p_carriage_instance->current_location] > CW_AFF)
 		return ;
 	p_carriage_instance->p_current_command = p_carriage_instance->pp_command_container[pArenaInstance->p_field[p_carriage_instance->current_location]];
-	p_carriage_instance->nearest_cycle = pArenaInstance->cycle_amount + p_carriage_instance->p_current_command->waiting_time - 1;
+	p_carriage_instance->nearest_cycle = pArenaInstance->cycle + p_carriage_instance->p_current_command->waiting_time - 1;
 	p_carriage_instance->cw_save_pos(p_carriage_instance, CW_MAIN_SAVE);
 	p_carriage_instance->error_ocurred = CW_FALSE;
 	p_carriage_instance->offset = 0;

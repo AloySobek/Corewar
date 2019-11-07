@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_vis_welcomescr.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:44:55 by dbrady            #+#    #+#             */
-/*   Updated: 2019/10/31 15:42:38 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/11/07 20:41:31 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	cr_vis_winner(t_corewar *cr)
 	cr_vis_clearscreen(cr);
 	attron(A_BOLD);
 	mvprintw(V_H/2, V_W/2, "Contestant %d, \"%s\", has won !\n",
-	cr->p_arena_obj->p_last_survivor->id,
-	cr->p_arena_obj->p_last_survivor->p_name);
+	cr->p_arena_obj->p_winner->id,
+	cr->p_arena_obj->p_winner->p_name);
 	mvprintw(V_H/2 + 1, V_W/2, "(Press 's' to exit)");
 	attroff(A_BOLD);
 	while (getch() != 's')

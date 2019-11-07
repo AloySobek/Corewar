@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:39:29 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 21:27:02 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/07 16:27:51 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void		cw_carriage_obj_init(t_corewar *p_game_instance)
 		p_carriage_obj->cw_set_owner(p_carriage_obj, p_game_instance->p_scheduler->p_player_obj, p_game_instance->players_amount);
 		p_carriage_obj->cw_write_owner_id_to_reg(p_carriage_obj);
 		p_game_instance->p_scheduler->cw_insert_process(p_game_instance->p_scheduler, p_carriage_obj, 1);
+		p_game_instance->p_scheduler->cw_list_process(p_game_instance->p_scheduler, p_carriage_obj);
 	}
 	p_game_instance->numerate_carriage = p_game_instance->carriages_amount;
 }

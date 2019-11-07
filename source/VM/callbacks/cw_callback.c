@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 19:45:28 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 17:19:04 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/07 20:47:22 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	live_exec(t_corewar *p_game_obj)
 {
-	;// p_game_obj->p_carriage_obj->cw_parse_types(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj);
-	// if (p_game_obj->p_carriage_obj->error_ocurred) return ;
-	// p_game_obj->p_carriage_obj->cw_read_operation(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj, p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1], p_game_obj->p_carriage_obj->args >> 6 & 0x03);
-	// if (p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value <= -1 && p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value >= -4)
-	// {
-	// 	for (int i = 0; i < p_game_obj->players_amount; ++i)
-	// 	{
-	// 		if (p_game_obj->p_scheduler->p_players_room->p_current_player->id == -p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value)
-	// 			p_game_obj->p_arena_obj->p_last_survivor = p_game_obj->p_scheduler->p_players_room->p_current_player;
-	// 		p_game_obj->p_scheduler->p_players_room->cw_rotate(p_game_obj->p_scheduler->p_players_room);
-	// 	}
-	// 	p_game_obj->p_arena_obj->p_last_survivor->live_amount += 1;
-	// }
-	// p_game_obj->p_carriage_obj->last_speak_cycle = p_game_obj->p_arena_obj->cycle_amount;
-	// p_game_obj->p_arena_obj->live_amount += 1;
+	p_game_obj->p_carriage_obj->cw_parse_types(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj);
+	if (p_game_obj->p_carriage_obj->error_ocurred) return ;
+	p_game_obj->p_carriage_obj->cw_read_operation(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj, p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1], p_game_obj->p_carriage_obj->args >> 6 & 0x03);
+	if (p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value <= -1 && p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value >= -4)
+	{
+		for (int i = 0; i < p_game_obj->p_scheduler->players_amount; ++i)
+		{
+			if (p_game_obj->p_scheduler->p_player_obj->id == -p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.int_value)
+				p_game_obj->p_arena_obj->p_winner = p_game_obj->p_scheduler->p_player_obj;
+			p_game_obj->p_scheduler->p_player_obj = p_game_obj->p_scheduler->p_player_obj->p_next;
+		}
+		p_game_obj->p_arena_obj->p_winner->live_amount += 1;
+	}
+	p_game_obj->p_carriage_obj->last_speak_cycle = p_game_obj->p_arena_obj->cycle;
+	p_game_obj->p_arena_obj->live_amount += 1;
 }
 
 void	ld_exec(t_corewar *p_game_obj)
@@ -114,19 +114,8 @@ void	zjmp_exec(t_corewar *p_game_obj)
 	p_game_obj->p_carriage_obj->cw_parse_types(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj);
 	if (p_game_obj->p_carriage_obj->error_ocurred) return ;
 	p_game_obj->p_carriage_obj->cw_read_operation(p_game_obj->p_carriage_obj, p_game_obj->p_arena_obj, p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1], p_game_obj->p_carriage_obj->args >> 6 & 0x03);
-	//if (p_game_obj->p_arena_obj->cycle_amount == 23139)
-	//{
-	//	ft_printf("%d\n", p_game_obj->p_carriage_obj->current_location);
-	//	ft_printf("%d\n", p_game_obj->p_carriage_obj->carry);
-	//	ft_printf("%d\n", p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.short_value);
-	//}
 	if (p_game_obj->p_carriage_obj->carry)
 		p_game_obj->p_carriage_obj->cw_move_to(p_game_obj->p_carriage_obj, (p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.short_value % IDX_MOD) - p_game_obj->p_carriage_obj->odometer);
-	//if (p_game_obj->p_arena_obj->cycle_amount == 23139)
-	//{
-	//	ft_printf("%d\n", p_game_obj->p_carriage_obj->current_location);
-	//	exit(1);
-	//}
 }
 
 void	ldi_exec(t_corewar *p_game_obj)
@@ -161,8 +150,8 @@ void	sti_exec(t_corewar *p_game_obj)
 	for (int i = CW_INT; i < CW_REG_SIZE; ++i, p_game_obj->p_carriage_obj->cw_move_to(p_game_obj->p_carriage_obj, 1))
 	{
 		p_game_obj->p_arena_obj->p_field[p_game_obj->p_carriage_obj->current_location] = p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->p_data[i];
-		if (p_game_obj->visualizator)
-			cr_vis_putx(p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->p_data[i], p_game_obj->p_carriage_obj->current_location, p_game_obj->p_carriage_obj->p_owner->id, 0, p_game_obj->p_carriage_obj->game_ref);
+		//if (p_game_obj->visualizator)
+		//	cr_vis_putx(p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->p_data[i], p_game_obj->p_carriage_obj->current_location, p_game_obj->p_carriage_obj->p_owner->id, 0);
 	}
 	p_game_obj->p_carriage_obj->cw_carriage_return(p_game_obj->p_carriage_obj, CW_ADDIT_SAVE);
 
@@ -185,7 +174,10 @@ void	fork_exec(t_corewar *p_game_obj)
 	p_carriage_obj->pp_command_container = p_game_obj->p_carriage_obj->pp_command_container;
 	p_carriage_obj->p_owner = p_game_obj->p_carriage_obj->p_owner;
 	p_carriage_obj->id = ++p_game_obj->numerate_carriage;
-	p_carriage_obj->nearest_cycle = p_game_obj->p_arena_obj->cycle_amount + 1;
+	p_carriage_obj->nearest_cycle = p_game_obj->p_arena_obj->cycle + 1;
+	p_game_obj->p_scheduler->pa_timeline[p_carriage_obj->nearest_cycle]->p_root = p_game_obj->p_scheduler->pa_timeline[p_carriage_obj->nearest_cycle]->cw_enqueue(p_game_obj->p_scheduler->pa_timeline[p_carriage_obj->nearest_cycle], p_game_obj->p_scheduler->pa_timeline[p_carriage_obj->nearest_cycle]->p_root, p_carriage_obj);
+	p_game_obj->p_scheduler->cw_list_process(p_game_obj->p_scheduler, p_carriage_obj);
+	p_game_obj->carriages_amount += 1;
 }
 
 void	lld_exec(t_corewar *p_game_obj)
@@ -232,7 +224,10 @@ void	lfork_exec(t_corewar *p_game_obj)
 	p_carriage_obj->pp_command_container = p_game_obj->p_carriage_obj->pp_command_container;
 	p_carriage_obj->p_owner = p_game_obj->p_carriage_obj->p_owner;
 	p_carriage_obj->id = ++p_game_obj->numerate_carriage;
-	p_carriage_obj->nearest_cycle = p_game_obj->p_arena_obj->cycle_amount + 1;
+	p_carriage_obj->nearest_cycle = p_game_obj->p_arena_obj->cycle + 1;
+	p_game_obj->p_scheduler->pa_timeline[p_carriage_obj->nearest_cycle]->p_root = p_game_obj->p_scheduler->pa_timeline[p_carriage_obj->nearest_cycle]->cw_enqueue(p_game_obj->p_scheduler->pa_timeline[p_carriage_obj->nearest_cycle], p_game_obj->p_scheduler->pa_timeline[p_carriage_obj->nearest_cycle]->p_root, p_carriage_obj);
+	p_game_obj->p_scheduler->cw_list_process(p_game_obj->p_scheduler, p_carriage_obj);
+	p_game_obj->carriages_amount += 1;
 }
 
 void	aff_exec(t_corewar *p_game_obj)

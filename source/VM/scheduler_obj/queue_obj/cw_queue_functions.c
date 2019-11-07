@@ -6,30 +6,53 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:10:26 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 21:24:57 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/07 20:34:43 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		cw_print_content(t_queue *p_queue_instance)
+static void		cw_print_content(t_queue *p_queue_instance, t_carriage *p_root, int level)
 {
-	int			iter;
-
-	iter = CW_ITERATOR;
+	if (p_root)
+	{
+		p_queue_instance->cw_print_content(p_queue_instance, p_root->p_left, level + 1);
+		for (int i = 0; i < level; ++i)
+			ft_printf("   ");
+		ft_printf("%d\n", p_root->id);
+		p_queue_instance->cw_print_content(p_queue_instance, p_root->p_right, level + 1);
+	}
 }
 
 static void			cw_exec_processes(t_queue *p_queue_instance, t_carriage *p_root)
 {
+	t_carriage *p_left;
+	t_carriage *p_right;
+
 	if (p_root)
 	{
-		p_queue_instance->cw_exec_processes(p_queue_instance, p_root->p_left);
+		p_left = p_root->p_left;
+		p_right = p_root->p_right;
+		p_queue_instance->cw_exec_processes(p_queue_instance, p_right);
+		if (p_root->kill == CW_FALSE)
+		{
+			p_queue_instance->game_ref->p_carriage_obj = p_root;
+			p_queue_instance->game_ref->p_carriage_obj->cw_set_command_time(p_queue_instance->game_ref->p_carriage_obj, p_queue_instance->game_ref->p_arena_obj);
+			p_queue_instance->game_ref->p_carriage_obj->cw_exec_command(p_queue_instance->game_ref->p_carriage_obj, p_queue_instance->game_ref);
+			if (p_queue_instance->game_ref->p_carriage_obj->nearest_cycle < 50000)
+				p_queue_instance->pa_timeline[p_queue_instance->game_ref->p_carriage_obj->nearest_cycle]->p_root = p_queue_instance->pa_timeline[p_queue_instance->game_ref->p_carriage_obj->nearest_cycle]->cw_enqueue(p_queue_instance->pa_timeline[p_queue_instance->game_ref->p_carriage_obj->nearest_cycle], p_queue_instance->pa_timeline[p_queue_instance->game_ref->p_carriage_obj->nearest_cycle]->p_root, p_queue_instance->game_ref->p_carriage_obj);
+			else
+				exit(1);
+		}
+		else
+			p_root->cw_destructor(&p_root);
+		p_queue_instance->cw_exec_processes(p_queue_instance, p_left);
 	}
 }
 
 static t_carriage	*cw_right_rotate(t_queue *p_queue_instance, t_carriage *p_carriage_obj)
 {
-	t_carriage	*p_left;
+	t_carriage		*p_left;
 
 	if (p_carriage_obj->p_left)
 	{
@@ -119,7 +142,6 @@ static t_carriage	*cw_enqueue(t_queue *p_queue_instance, t_carriage *p_root, t_c
 			p_adding_carriage->p_left = NULL;
 			return (p_queue_instance->cw_balance(p_queue_instance, p_adding_carriage));
 		}
-
 	}
 	return (NULL);
 }

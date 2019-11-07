@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 18:33:42 by vrichese          #+#    #+#              #
-#    Updated: 2019/11/06 17:16:24 by vrichese         ###   ########.fr        #
+#    Updated: 2019/11/07 21:29:04 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,13 +97,13 @@ vpath %.a $(DIR_LIBFT) $(DIR_PRINTF)
 all: $(NAME)
 
 $(NAME): $(OBJ) $(VIS_OBJ) $(LIBFT) $(LIBFTPRINTF)
-	gcc $(F) $(OBJ_WITH_DIR) -lncurses -o $@ $(DIR_LIBFT)$(LIBFT) $(DIR_PRINTF)$(LIBFTPRINTF)
+	gcc -O3 $(F) $(OBJ_WITH_DIR) -lncurses -o $@ $(DIR_LIBFT)$(LIBFT) $(DIR_PRINTF)$(LIBFTPRINTF)
 
 $(OBJ):%.o:%.c $(VM_HEADERS) | $(DIR_BIN)
-	gcc -g $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE) -c $< -o $(DIR_BIN)$@
+	gcc -O3 $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE) -c $< -o $(DIR_BIN)$@
 
 $(VIS_OBJ):%.o:%.c $(VIS_HEADER)
-	gcc -g $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE)  -c $< -o $(DIR_BIN)$@
+	gcc -O3 $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE)  -c $< -o $(DIR_BIN)$@
 
 $(DIR_BIN):
 	mkdir -p $@

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_vis_printinfo.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:10:43 by dbrady            #+#    #+#             */
-/*   Updated: 2019/10/31 14:07:15 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/11/07 20:47:22 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		cr_vis_lastlive(t_corewar *cr, int id)
 			life = car->last_speak_cycle;
 		car = car->p_next;
 	}
-	return (cr->p_arena_obj->cycle_amount - life);
+	return (cr->p_arena_obj->cycle - life);
 }
 
 int		cr_vis_printplayers(t_corewar *cr)
@@ -117,7 +117,7 @@ int		cr_vis_printinfo(t_corewar *cr)
 		attron(A_BOLD);
 		mvprintw(2, V_SEP + 18, "<< %s >>", (cr->vis->flow || cr->vis->step) ? "running" : "paused");
 		mvprintw(4, V_SEP + 12, "Cycles/second limit: %d", (CLOCKS_PER_SEC / (CLOCKS_PER_SEC / cr->vis->fpsdiv)));
-		mvprintw(6, V_SEP + 18, " Cycle: %d", cr->p_arena_obj->cycle_amount);
+		mvprintw(6, V_SEP + 18, " Cycle: %d", cr->p_arena_obj->cycle);
 		mvprintw(8, V_SEP + 18, "Processes: %d", cr->carriages_amount);
 		cr_vis_printplayers(cr);
 		mvprintw(cr->players_amount * 4 + 12, V_SEP + 6, "CYCLE_TO_DIE: %d   CYCLE_DELTA: %d", CYCLE_TO_DIE, CYCLE_DELTA);

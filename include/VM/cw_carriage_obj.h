@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:18:15 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 19:51:49 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/07 19:46:05 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct			s_carriage
 	int					wake_up;
 	int					offset;
 	int					nearest_cycle;
+	int					kill;
 
 	int					height;
-	int					key;
 
 	t_byte				*p_registers;
 

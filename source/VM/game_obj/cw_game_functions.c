@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:41:14 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/06 21:12:21 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/07 20:41:31 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	cw_congratulations(t_corewar *p_game_instance)
 		cr_vis_winner(p_game_instance);
 	else
 		ft_printf("Contestant %d, \"%s\", has won !\n",
-		p_game_instance->p_arena_obj->p_last_survivor->id,
-		p_game_instance->p_arena_obj->p_last_survivor->p_name);
+		p_game_instance->p_arena_obj->p_winner->id,
+		p_game_instance->p_arena_obj->p_winner->p_name);
 }
 
 static void	cw_introduce_players(t_corewar *p_game_instance, t_carriage *p_introducing_carriage, int level)
