@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:07:10 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/07 20:55:52 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:44:35 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 
 # define AR_DUMP_EXIT		1
 
+# define AR_FIELD_ERROR		"Memory for ARENA->FIELD has not been allocated"
+# define AR_OBJECT_ERROR	"Memory for ARENA has not been allocated"
+# define AR_OBJECT_NAME		"ARENA"
+
 typedef enum		e_set_buffer
 {
 	CW_VALUE_BUF_1,
@@ -48,16 +52,16 @@ typedef struct		s_arena
 	t_mark			cycle_to_die;
 	t_counter		live_amount;
 	t_counter		check_amount;
-	t_lcounter		cycle;
+	t_counter		cycle;
 
 	t_byte			*p_field;
 	t_player		*p_winner;
 	t_buffer		*pa_buffer_set[CW_BUFFER_AMOUNT];
 
 	t_method		(*cw_constructor)	(struct s_arena **);
-	int				(*cw_time_to_check)	(struct s_arena *, int);
 	t_method		(*cw_print_field)	(struct s_arena *);
 	t_method		(*cw_buffer_init)	(struct s_arena *);
+	t_mark			(*cw_time_to_check)	(struct s_arena *, int);
 	t_method		(*cw_destructor)	(struct s_arena **);
 }					t_arena;
 

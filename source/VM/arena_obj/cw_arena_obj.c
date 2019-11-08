@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 19:14:53 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/07 20:55:46 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:45:18 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		cw_constructor(t_arena **pp_arena_instance)
 {
 	if (!((*pp_arena_instance)->p_field =
 	(unsigned char *)malloc(sizeof(unsigned char) * MEM_SIZE)))
-		cw_error_catcher(CW_NOT_ALLOCATED, CW_ARENA);
+		cw_error_catcher(AR_OBJECT_NAME, AR_FIELD_ERROR, __FILE__, __LINE__);
 	ft_memset((*pp_arena_instance)->p_field, 0, MEM_SIZE);
 	(*pp_arena_instance)->cycle_to_die = CYCLE_TO_DIE;
 }
@@ -37,7 +37,7 @@ static void		cw_destructor(t_arena **pp_arena_instance)
 extern void		cw_create_instance_arena(t_arena **pp_arena_obj)
 {
 	if (!(*pp_arena_obj = (t_arena *)malloc(sizeof(t_arena))))
-		cw_error_catcher(CW_NOT_ALLOCATED, CW_ARENA);
+		cw_error_catcher(AR_OBJECT_NAME, AR_OBJECT_ERROR, __FILE__, __LINE__);
 	ft_memset(*pp_arena_obj, 0, sizeof(t_arena));
 	(*pp_arena_obj)->cw_constructor = cw_constructor;
 	(*pp_arena_obj)->cw_destructor = cw_destructor;

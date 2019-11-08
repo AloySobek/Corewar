@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 14:41:47 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/07 20:32:05 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:39:35 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@ typedef struct	s_queue
 
 	t_corewar	*game_ref;
 
-	t_carriage	*p_root;
-	t_carriage	*p_tree;
+	t_process	*p_root;
+	t_process	*p_tree;
 
 	void		(*cw_constructor)				(struct s_queue **);
-	t_carriage	*(*cw_enqueue)					(struct s_queue *, t_carriage *, t_carriage *);
-	void		(*cw_set_height)				(struct s_queue *, t_carriage *);
-	int			(*cw_get_height)				(struct s_queue *, t_carriage *);
-	int			(*cw_get_balance_factor)		(struct s_queue *, t_carriage *);
-	t_carriage	*(*cw_right_rotate)				(struct s_queue *, t_carriage *);
-	t_carriage	*(*cw_left_rotate)				(struct s_queue *, t_carriage *);
-	t_method 	(*cw_exec_processes)			(struct s_queue *, t_carriage *);
-	t_method 	(*cw_exec_processes_with_check)	(struct s_queue *, t_carriage *);
-	t_carriage	*(*cw_balance)					(struct s_queue *, t_carriage *);
-	void		(*cw_print_content)				(struct s_queue *, t_carriage *, int);
+	t_process	*(*cw_enqueue)					(struct s_queue *, t_process *, t_process *);
+	void		(*cw_set_height)				(struct s_queue *, t_process *);
+	int			(*cw_get_height)				(struct s_queue *, t_process *);
+	int			(*cw_get_balance_factor)		(struct s_queue *, t_process *);
+	t_process	*(*cw_right_rotate)				(struct s_queue *, t_process *);
+	t_process	*(*cw_left_rotate)				(struct s_queue *, t_process *);
+	t_method 	(*cw_exec_processes)			(struct s_queue *, t_process *);
+	t_method 	(*cw_exec_processes_with_check)	(struct s_queue *, t_process *);
+	t_process	*(*cw_balance)					(struct s_queue *, t_process *);
+	void		(*cw_print_content)				(struct s_queue *, t_process *, int);
 	void		(*cw_destructor)				(struct s_queue **);
 }				t_queue;
 

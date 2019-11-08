@@ -6,28 +6,28 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 14:46:34 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/07 16:30:50 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:45:39 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		cw_list_process(t_scheduler *p_scheduler_instance, t_carriage *p_adding_process)
+static void		cw_list_process(t_scheduler *p_scheduler_instance, t_process *p_adding_process)
 {
 	if (p_adding_process)
 	{
-		if (!p_scheduler_instance->p_carriage_obj)
+		if (!p_scheduler_instance->p_process_obj)
 		{
 			p_adding_process->p_next = p_adding_process;
 			p_adding_process->p_prev = p_adding_process;
-			p_scheduler_instance->p_carriage_obj = p_adding_process;
+			p_scheduler_instance->p_process_obj = p_adding_process;
 		}
 		else
 		{
-			p_adding_process->p_next = p_scheduler_instance->p_carriage_obj;
-			p_adding_process->p_prev = p_scheduler_instance->p_carriage_obj->p_prev;
-			p_scheduler_instance->p_carriage_obj->p_prev->p_next = p_adding_process;
-			p_scheduler_instance->p_carriage_obj->p_prev = p_adding_process;
+			p_adding_process->p_next = p_scheduler_instance->p_process_obj;
+			p_adding_process->p_prev = p_scheduler_instance->p_process_obj->p_prev;
+			p_scheduler_instance->p_process_obj->p_prev->p_next = p_adding_process;
+			p_scheduler_instance->p_process_obj->p_prev = p_adding_process;
 		}
 		p_scheduler_instance->processes_amount += 1;
 	}
@@ -54,7 +54,7 @@ static void		cw_insert_player(t_scheduler *p_scheduler_instance, t_player *p_add
 	}
 }
 
-static void		cw_insert_process(t_scheduler *p_scheduler_instance, t_carriage *p_adding_process, int cycle)
+static void		cw_insert_process(t_scheduler *p_scheduler_instance, t_process *p_adding_process, int cycle)
 {
 	t_queue		*p_current_queue;
 

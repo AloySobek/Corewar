@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 14:10:43 by dbrady            #+#    #+#             */
-/*   Updated: 2019/11/07 20:47:22 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:45:39 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	cr_vis_clearinfo()
 
 int		cr_vis_lastlive(t_corewar *cr, int id)
 {
-	t_carriage	*car;
+	t_process	*car;
 	int			life;
 	int			barrier;
 
 	barrier = -1;
 	life = 0;
-	car = cr->p_carriage_obj;
+	car = cr->p_process_obj;
 	while (car->p_next && ++barrier < cr->carriages_amount)
 	{
 		if (car->p_owner->id == id && car->last_speak_cycle > life)

@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 13:22:52 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/07 20:56:15 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:45:11 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int		cw_time_to_check(t_arena *p_arena_instance, int last_check)
 
 static void		cw_print_field(t_arena *p_arena_instance)
 {
-	int			border;
-	int			iter;
+	t_mark		border;
+	t_iterator	iter;
 
 	iter = CW_ITERATOR;
 	border = sqrt(MEM_SIZE);
@@ -41,7 +41,7 @@ static void		cw_print_field(t_arena *p_arena_instance)
 static void		cw_buffer_init(t_arena *p_arena_instance)
 {
 	t_buffer	*buffer_obj;
-	int			buf_iter;
+	t_iterator	buf_iter;
 
 	buf_iter = CW_ITERATOR;
 	while (++buf_iter < CW_BUFFER_AMOUNT)

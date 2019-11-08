@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 14:44:55 by dbrady            #+#    #+#             */
-/*   Updated: 2019/11/07 20:41:31 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/08 19:45:39 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	cr_vis_welcome(t_corewar *cr)
 	mvprintw(V_H/2, V_W/2, "Introducing contestants...\n");
 	while (iter < cr->carriages_amount)
 	{
-		cr->p_carriage_obj = cr->p_carriage_obj->p_prev;
+		cr->p_process_obj = cr->p_process_obj->p_prev;
 		mvprintw(V_H/2 + iter, V_W/2, "* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-		cr->p_carriage_obj->p_owner->id,
-		cr->p_carriage_obj->p_owner->code_size,
-		cr->p_carriage_obj->p_owner->p_name,
-		cr->p_carriage_obj->p_owner->p_comment);
+		cr->p_process_obj->p_owner->id,
+		cr->p_process_obj->p_owner->code_size,
+		cr->p_process_obj->p_owner->p_name,
+		cr->p_process_obj->p_owner->p_comment);
 		++iter;
 	}
 	mvprintw(V_H/2 + iter, V_W/2, "(Press 's' to continue)");
