@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:36:54 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/08 19:24:30 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:38:42 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static void	cw_put_param(t_command *p_command_instance,
 							size_t attributes, void (*f)(t_corewar *))
 {
 	CO_ID_I = attributes >> 56 & 0xff;
-	CO_ARGS_I = (attributes >> 48 & 0xff) |
-				(attributes >> 40 & 0xff) |
-				(attributes >> 32 & 0xff);
+	CO_ARGS_I = ((attributes >> 48 & 0xff) << 24) |
+				((attributes >> 40 & 0xff) << 16) |
+				((attributes >> 32 & 0xff) << 8);
 	CO_CALLBACK_I = f;
 	CO_DIR_SIZE_I = attributes >> 24 & 0xff;
 	CO_TYPE_BYTE_I = attributes & 0x3f;

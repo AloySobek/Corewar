@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:27:20 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/08 19:45:39 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:58:09 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct		s_scheduler
 	t_counter		players_amount;
 
 	t_player		*p_player_obj;
-	t_process		*p_process_obj;
+	t_process		*p_carriage_obj;
 	t_queue			*pa_timeline[SC_MAX_CYCLE_SUPPORT];
 
 	t_method		(*cw_constructor)			(struct s_scheduler **);

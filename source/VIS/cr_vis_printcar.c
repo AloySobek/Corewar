@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 16:15:43 by dbrady            #+#    #+#             */
-/*   Updated: 2019/11/08 19:45:39 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/09 19:02:27 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static t_process		*cr_vis_getcarp(t_corewar *cr, int place)
 {
 	t_process *car;
 
-	car = cr->p_process_obj;
+	car = cr->p_carriage_obj;
 	while (car->id != 1 && place)
 	{
-		if (car->p_next == cr->p_process_obj)
+		if (car->p_next == cr->p_carriage_obj)
 			return (car);
 		car = car->p_next;
 		place -= 1;
@@ -32,7 +32,7 @@ static void				cr_vis_printreg(unsigned char *reg, int y)
 	int i;
 
 	i = 0;
-	while (i < CW_REG_SIZE * CW_REG_NUMBER)
+	while (i < CW_REG_SIZE * CW_REG_L)
 	{
 		if (i == 32)
 			y += 1;
@@ -75,7 +75,7 @@ cr->vis->car_place);
 		cr_vis_printattr(y, V_SEPSEP + 32, owner, car->p_owner->id, 0);
 		attroff(A_BOLD);
 		cr_vis_printreg(car->p_registers, y + 1);
-		if (car->p_next == cr->p_process_obj)
+		if (car->p_next == cr->p_carriage_obj)
 			break ;
 		car = car->p_next;
 		y += 3;

@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 16:14:01 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/08 16:15:16 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/09 19:00:30 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	cw_destructor(t_corewar **pp_game_instance)
 extern void	cw_create_instance_game(t_corewar **pp_game_obj)
 {
 	if (!(*pp_game_obj = (t_corewar *)malloc(sizeof(t_corewar))))
-		cw_error_catcher(CW_NOT_ALLOCATED, CW_GAME);
+		;//cw_error_catcher(CW_NOT_ALLOCATED, CW_GAME);
 	ft_memset(*pp_game_obj, 0, sizeof(t_corewar));
 	(*pp_game_obj)->cw_constructor = cw_constructor;
 	(*pp_game_obj)->cw_destructor = cw_destructor;

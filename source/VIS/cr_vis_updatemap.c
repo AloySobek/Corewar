@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/23 16:36:16 by dbrady            #+#    #+#             */
-/*   Updated: 2019/11/08 19:45:39 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:58:09 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		cr_vis_printcarmap(t_corewar *cr)
 	int			colour;
 	int			i;
 
-	car = cr->p_process_obj;
+	car = cr->p_carriage_obj;
 	i = -1;
 	while (++i < cr->carriages_amount)
 	{

@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:15:38 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/08 19:45:39 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:58:09 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@
 
 typedef struct			s_corewar
 {
-	t_flag				starting_cycle;
+	t_flag				visual_cycle;
+	t_flag				visualizator;
 	t_flag				binary_mode;
 	t_flag				cycle_dump;
 	t_flag				load_dump;
 	t_flag				custom_id;
 	t_flag				aff_hide;
 	t_flag				verbose;
-	t_flag				stealth;
-	t_flag				ncurses;
 
 	t_counter			players_amount;
 	t_counter			commands_amount;
@@ -42,7 +41,7 @@ typedef struct			s_corewar
 	t_arena				*p_arena_obj;
 	t_vis				*vis;
 
-	t_process			*p_process_obj;
+	t_process			*p_carriage_obj;
 	t_player			*p_player_obj;
 
 	t_method			(*cw_constructor)			(t_corewar **);

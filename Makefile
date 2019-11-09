@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 18:33:42 by vrichese          #+#    #+#              #
-#    Updated: 2019/11/07 21:29:04 by vrichese         ###   ########.fr        #
+#    Updated: 2019/11/09 19:28:37 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,20 +20,20 @@ VM_DIR_INCLUDE	:=		include/VM
 VIS_DIR_INCLUDE :=		include/VIS
 DIR_BIN			:=		bin/
 
-VM_SOURCE		:=		cw_carriage_object.c					\
-							cw_prepare_to_work.c				\
-							cw_carriage_movements.c				\
-							cw_carriage_read_write_operations.c	\
-							cw_carriage_registers.c				\
-						cw_command_object.c						\
+VM_SOURCE		:=		cw_process_obj.c						\
+							cw_process_prepare_functions.c		\
+							cw_process_movements_functions.c	\
+							cw_process_read_write_functions.c	\
+							cw_process_registers.c				\
+						cw_command_obj.c						\
 							cw_command_functions.c				\
-						cw_buffer_object.c						\
+						cw_buffer_obj.c							\
 							cw_buffer_functions.c				\
-						cw_player_object.c						\
+						cw_player_obj.c							\
 							cw_player_functions.c				\
-						cw_arena_object.c						\
+						cw_arena_obj.c							\
 							cw_arena_functions.c				\
-						cw_error_object.c						\
+						cw_error_manager.c						\
 						cw_game_object.c						\
 							cw_game_functions.c					\
 							cw_essence_init.c					\
@@ -55,7 +55,7 @@ VIS_SOURCE		:=		cr_vis_buildmap.c	\
 						cr_vis_welcomescr.c \
 
 
-VM_HEADERS		:=		cw_carriage_obj.h	\
+VM_HEADERS		:=		cw_process_obj.h	\
 						cw_command_obj.h	\
 						cw_buffer_obj.h		\
 						cw_player_obj.h		\
@@ -81,11 +81,10 @@ vpath %.c $(VM_DIR_SOURCE)	$(VM_DIR_SOURCE)/game_obj						\
 							$(VM_DIR_SOURCE)/arena_obj						\
 							$(VM_DIR_SOURCE)/buffer_obj						\
 							$(VM_DIR_SOURCE)/callbacks						\
-							$(VM_DIR_SOURCE)/carriage_obj					\
+							$(VM_DIR_SOURCE)/process_obj					\
 							$(VM_DIR_SOURCE)/command_obj					\
 							$(VM_DIR_SOURCE)/player_obj						\
 							$(VM_DIR_SOURCE)/scheduler_obj					\
-								$(VM_DIR_SOURCE)/scheduler_obj/stack_obj	\
 								$(VM_DIR_SOURCE)/scheduler_obj/queue_obj	\
 							$(VM_DIR_SOURCE)/rest							\
 vpath %.c $(VIS_DIR_SOURCE)
@@ -97,13 +96,13 @@ vpath %.a $(DIR_LIBFT) $(DIR_PRINTF)
 all: $(NAME)
 
 $(NAME): $(OBJ) $(VIS_OBJ) $(LIBFT) $(LIBFTPRINTF)
-	gcc -O3 $(F) $(OBJ_WITH_DIR) -lncurses -o $@ $(DIR_LIBFT)$(LIBFT) $(DIR_PRINTF)$(LIBFTPRINTF)
+	gcc -g $(F) $(OBJ_WITH_DIR) -lncurses -o $@ $(DIR_LIBFT)$(LIBFT) $(DIR_PRINTF)$(LIBFTPRINTF)
 
 $(OBJ):%.o:%.c $(VM_HEADERS) | $(DIR_BIN)
-	gcc -O3 $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE) -c $< -o $(DIR_BIN)$@
+	gcc -g $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE) -c $< -o $(DIR_BIN)$@
 
 $(VIS_OBJ):%.o:%.c $(VIS_HEADER)
-	gcc -O3 $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE)  -c $< -o $(DIR_BIN)$@
+	gcc -g $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE)  -c $< -o $(DIR_BIN)$@
 
 $(DIR_BIN):
 	mkdir -p $@

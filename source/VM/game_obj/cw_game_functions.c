@@ -6,26 +6,26 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:41:14 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/08 20:58:45 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/09 19:00:22 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	cw_write_code_to_memory(t_corewar *p_game_instance, t_process *p_process_obj, int memory_step)
+static void	cw_write_code_to_memory(t_corewar *p_game_instance, t_process *p_carriage_obj, int memory_step)
 {
 	int		player_location;
 	int		code_iter;
 
-	if (p_process_obj)
+	if (p_carriage_obj)
 	{
-		p_game_instance->cw_write_code_to_memory(p_game_instance, p_process_obj->p_left, memory_step);
+		p_game_instance->cw_write_code_to_memory(p_game_instance, p_carriage_obj->p_left, memory_step);
 		code_iter = CW_ITERATOR;
-		player_location = memory_step * (p_process_obj->p_owner->id - 1);
-		p_process_obj->current_location = player_location;
-		while (player_location < memory_step * (p_process_obj->p_owner->id - 1) + CHAMP_MAX_SIZE)
-			p_game_instance->p_arena_obj->p_field[player_location++] = p_process_obj->p_owner->p_code[++code_iter];
-		p_game_instance->cw_write_code_to_memory(p_game_instance, p_process_obj->p_right, memory_step);
+		player_location = memory_step * (p_carriage_obj->p_owner->id - 1);
+		p_carriage_obj->current_location = player_location;
+		while (player_location < memory_step * (p_carriage_obj->p_owner->id - 1) + CHAMP_MAX_SIZE)
+			p_game_instance->p_arena_obj->p_field[player_location++] = p_carriage_obj->p_owner->p_code[++code_iter];
+		p_game_instance->cw_write_code_to_memory(p_game_instance, p_carriage_obj->p_right, memory_step);
 	}
 }
 

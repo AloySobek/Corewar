@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:08:56 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/08 20:32:42 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/09 18:40:33 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CW_TYPEDEF_OBJECT_H
 
 typedef struct s_scheduler	t_scheduler;
-typedef struct s_carriage	t_process;
+typedef struct s_process	t_process;
 typedef struct s_corewar	t_corewar;
 typedef struct s_command	t_command;
 typedef struct s_player		t_player;
@@ -35,7 +35,7 @@ typedef int					t_iter;
 
 # include "cw_arena_obj.h"
 # include "cw_buffer_obj.h"
-# include "cw_carriage_obj.h"
+# include "cw_process_obj.h"
 # include "cw_command_obj.h"
 # include "cw_game_obj.h"
 # include "cw_player_obj.h"
