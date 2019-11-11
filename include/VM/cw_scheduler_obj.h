@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:27:20 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/09 18:58:09 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/11 22:05:24 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,48 @@
 
 # include "cw_obj_container.h"
 
+# define SC_PLAYERS_AMOUNT_I	p_scheduler_instance->players_amount
+# define SC_PROCESSES_AMOUNT_I	p_scheduler_instance->processes_amount
+# define SC_PLAYERS_LIST_I		p_scheduler_instance->p_players_list
+# define SC_PROCESSES_LIST_I	p_scheduler_instance->p_processes_list
+# define SC_TREE_TIME_I(X)		p_scheduler_instance->pa_avl_tree_timeline[X]
+# define SC_LIST_TIME_I(X)		p_scheduler_instance->pa_list_timeline[X]
+
 # define SC_END_GAME			-777
 # define SC_MAX_CYCLE_SUPPORT	50000
 
+# define SC_OBJ_NAME			"SCHEDULER"
+# define SC_OBJ_ERROR			"Memory for SCHEDULER has not been allocated"
+# define SC_TREE_ERROR			"Memory for SCHEDULER->AVL_TREE has not benn allocated"
+
 typedef struct		s_scheduler
 {
-	t_counter		processes_amount;
-	t_counter		players_amount;
+	t_mark			nearest_cycle;
 
-	t_player		*p_player_obj;
-	t_process		*p_carriage_obj;
-	t_queue			*pa_timeline[SC_MAX_CYCLE_SUPPORT];
+	t_flag			avl_tree_timeline_on;
+	t_flag			list_timeline_on;
+
+	t_counter		players_amount;
+	t_counter		processes_amount;
+
+	t_player		*p_players_list;
+	t_process		*p_processes_list;
+
+	t_queue			**pa_list_timeline;
+	t_queue			**pa_avl_tree_timeline;
 
 	t_method		(*cw_constructor)			(struct s_scheduler **);
 	t_method		(*cw_insert_process)		(struct s_scheduler *, t_process *, int);
-	t_method		(*cw_list_process)			(struct s_scheduler *, t_process *);
+	t_method		(*cw_delete_process)		(struct s_scheduler *, t_process **, int);
 	t_method		(*cw_insert_player)			(struct s_scheduler *, t_player *);
-	t_method		(*cw_kick_players)			(struct s_scheduler *);
-	t_method		(*cw_queues_init)			(struct s_scheduler *, t_corewar *);
+	t_method		(*cw_data_struct_init)		(struct s_scheduler *, t_corewar *);
+	t_method		(*cw_execution_processes)	(struct s_scheduler *, t_corewar *);
+	t_method		(*cw_deadline)				(struct s_scheduler *, t_corewar *);
 	t_method		(*cw_destructor)			(struct s_scheduler **);
 }					t_scheduler;
 
 void				cw_create_instance_scheduler	(t_scheduler **pp_scheduler_obj);
-void				cw_scheduler_functions_linker	(t_scheduler *p_scheduler_instance);
+void				cw_scheduler_insertion_linker	(t_scheduler *p_scheduler_instance, t_corewar *p_game_ref);
+void				cw_scheduler_functions_linker	(t_scheduler *p_scheduler_instance, t_corewar *p_game_ref);
 
 #endif

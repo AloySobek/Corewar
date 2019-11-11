@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:56:19 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/09 18:39:16 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/11 19:58:26 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ static void	cw_set_id(t_player *p_player_instance, int *p_busy_byte,
 							int id, int custom_id)
 {
 	if (custom_id)
-	{
-		if ((*p_busy_byte & (id << ((id - 1) * 8))) == id << ((id - 1) * 8))
+		if ((*p_busy_byte & (id << ((id - 1) * 8))) == id << ((id - 1) * 8)
+		&& id > 0 && id < 5)
 		{
 			PL_ID_I = id;
 			*p_busy_byte ^= (id << ((id - 1) * 8));
 		}
 		else
 			cw_error_catcher(PL_OBJECT_NAME, PL_SET_ID_ERROR, __FILE__, S);
-	}
 	else
 	{
 		while (id <= CW_MAX_PLAYERS)

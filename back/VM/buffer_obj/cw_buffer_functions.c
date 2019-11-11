@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cw_error_manager.c                                 :+:      :+:    :+:   */
+/*   cw_buffer_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/20 16:00:50 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 19:56:34 by vrichese         ###   ########.fr       */
+/*   Created: 2019/10/30 15:16:20 by vrichese          #+#    #+#             */
+/*   Updated: 2019/11/05 17:31:36 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	cw_error_catcher(const char *obj_name, const char *reason, const char *file, int line)
+static void	cw_erase_data(t_buffer *p_buffer_instance)
 {
-	ft_printf("\n###ERROR### FOR SOME REASONS AN ERROR OCCURED ###ERROR###\n");
-	ft_printf("'''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n");
-	ft_printf("FILE: %s\n", file);
-	ft_printf("LINE: %d\n", line);
-	ft_printf("OBJ: %s\n", obj_name);
-	ft_printf("INFO: (\"%15s\")\n", reason);
-	exit(1);
+	ft_memset(BU_DATA, 0, CW_REG_SIZE);
+}
+
+extern void	cw_buffer_functions_linker(t_buffer *p_buffer_instance)
+{
+	p_buffer_instance->cw_erase_data = cw_erase_data;
 }

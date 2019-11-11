@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:08:56 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/09 18:40:33 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:50:49 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef int					t_iterator;
 typedef	int					t_counter;
 typedef int					t_getter;
 typedef void				t_method;
+typedef int					t_imethod;
 typedef unsigned char		t_byte;
 typedef int					t_flag;
 typedef int					t_mark;

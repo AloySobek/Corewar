@@ -5,103 +5,154 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/03 14:46:34 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/09 18:58:09 by vrichese         ###   ########.fr       */
+/*   Created: 2019/11/11 17:24:27 by vrichese          #+#    #+#             */
+/*   Updated: 2019/11/11 22:06:01 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+# include "corewar.h"
 
-static void		cw_list_process(t_scheduler *p_scheduler_instance, t_process *p_adding_process)
+static void		cw_deadline(t_scheduler *p_scheduler_instance, t_corewar *p_game_ref)
 {
-	if (p_adding_process)
+	t_process	*iter;
+	t_iterator	i;
+	t_mark		check_point;
+
+	i = CW_ITERATOR;
+	iter = p_scheduler_instance->p_processes_list;
+	check_point = p_scheduler_instance->processes_amount;
+	p_game_ref->p_arena_obj->check_amount += 1;
+	p_game_ref->last_check_cycle = p_game_ref->p_arena_obj->cycle;
+	while (++i < check_point && p_scheduler_instance->p_processes_list)
 	{
-		if (!p_scheduler_instance->p_carriage_obj)
-		{
-			p_adding_process->p_next = p_adding_process;
-			p_adding_process->p_prev = p_adding_process;
-			p_scheduler_instance->p_carriage_obj = p_adding_process;
-		}
+		iter ? iter->p_owner->live_amount = 0 : 0;
+		if (iter && (p_game_ref->p_arena_obj->cycle_to_die <= (p_game_ref->p_arena_obj->cycle - iter->last_speak_cycle) || p_game_ref->p_arena_obj->cycle_to_die <= 0))
+			p_scheduler_instance->cw_delete_process(p_scheduler_instance, &iter, p_game_ref->p_arena_obj->cycle);
 		else
-		{
-			p_adding_process->p_next = p_scheduler_instance->p_carriage_obj;
-			p_adding_process->p_prev = p_scheduler_instance->p_carriage_obj->p_prev;
-			p_scheduler_instance->p_carriage_obj->p_prev->p_next = p_adding_process;
-			p_scheduler_instance->p_carriage_obj->p_prev = p_adding_process;
-		}
-		p_scheduler_instance->processes_amount += 1;
+			iter ? iter = iter->p_next : 0;
 	}
-}
-
-static void		cw_insert_player(t_scheduler *p_scheduler_instance, t_player *p_adding_player)
-{
-	if (p_adding_player)
+	if (p_game_ref->p_arena_obj->live_amount >= NBR_LIVE || p_game_ref->p_arena_obj->check_amount >= MAX_CHECKS)
 	{
-		if (!p_scheduler_instance->p_player_obj)
-		{
-			p_adding_player->p_next = p_adding_player;
-			p_adding_player->p_prev = p_adding_player;
-			p_scheduler_instance->p_player_obj = p_adding_player;
-		}
-		else
-		{
-			p_adding_player->p_next = p_scheduler_instance->p_player_obj;
-			p_adding_player->p_prev = p_scheduler_instance->p_player_obj->p_prev;
-			p_scheduler_instance->p_player_obj->p_prev->p_next = p_adding_player;
-			p_scheduler_instance->p_player_obj->p_prev = p_adding_player;
-		}
-		p_scheduler_instance->players_amount += 1;
+		p_game_ref->p_arena_obj->cycle_to_die -= CYCLE_DELTA;
+		p_game_ref->p_arena_obj->check_amount = 0;
 	}
+	p_game_ref->p_arena_obj->live_amount = 0;
 }
 
-static void		cw_insert_process(t_scheduler *p_scheduler_instance, t_process *p_adding_process, int cycle)
-{
-	t_queue		*p_current_queue;
-
-	p_current_queue = p_scheduler_instance->pa_timeline[cycle];
-	p_current_queue->p_root = p_current_queue->cw_enqueue(p_current_queue, p_current_queue->p_root, p_adding_process);
-}
-
-static void		cw_exec_processes(t_scheduler *p_scheduler_instance, int cycle)
+static void		cw_executon_processes(t_scheduler *p_scheduler_instance)
 {
 	;
 }
 
-static void		cw_kick_players(t_scheduler *p_scheduler_instance)
+static void		cw_ordinary_execution_processes(t_scheduler *p_scheduler_instance, t_corewar *p_game_ref)
 {
-	t_counter	iter;
-	t_player	*tmp;
+	t_process	*iter;
+	t_iterator	i;
+	t_mark		check_point;
 
-	iter = CW_ITERATOR;
-	while (++iter < p_scheduler_instance->players_amount)
+	i = CW_ITERATOR;
+	iter = p_scheduler_instance->p_processes_list;
+	check_point = p_scheduler_instance->processes_amount;
+	while (++i < check_point)
 	{
-		tmp = p_scheduler_instance->p_player_obj->p_next;
-		p_scheduler_instance->p_player_obj->cw_destructor(&p_scheduler_instance->p_player_obj);
-		p_scheduler_instance->p_player_obj = tmp;
+		p_game_ref->p_working_process = iter;
+		iter->cw_set_command_time(iter, p_game_ref);
+		iter->cw_exec_command(iter, p_game_ref);
+		iter = iter->p_next;
 	}
 }
 
-static void		cw_queues_init(t_scheduler *p_scheduler_instance, t_corewar *p_game_ref)
+static void		cw_timeline_execution_processes(t_scheduler *p_scheduler_instance, t_corewar *p_game_ref)
+{
+	;
+}
+
+static void		cw_data_struct_init(t_scheduler *p_scheduler_instance, t_corewar *p_game_ref)
 {
 	t_counter	iter;
 	t_queue		*p_queue;
 
 	iter = CW_ITERATOR;
-	while (++iter < SC_MAX_CYCLE_SUPPORT)
+	if (p_scheduler_instance->avl_tree_timeline_on || p_scheduler_instance->list_timeline_on)
 	{
-		cw_create_instance_queue(&p_queue);
-		p_queue->game_ref = p_game_ref;
-		p_queue->pa_timeline = p_scheduler_instance->pa_timeline;
-		p_scheduler_instance->pa_timeline[iter] = p_queue;
+		if (p_scheduler_instance->avl_tree_timeline_on)
+		{
+			if (!(p_scheduler_instance->pa_avl_tree_timeline = (t_queue **)malloc(sizeof(t_queue *) * SC_MAX_CYCLE_SUPPORT)))
+				cw_error_catcher(SC_OBJ_NAME, SC_TREE_ERROR, __FILE__, __LINE__);
+		}
+		else
+			if (!(p_scheduler_instance->pa_list_timeline = (t_queue **)malloc(sizeof(t_queue *) * SC_MAX_CYCLE_SUPPORT)))
+				cw_error_catcher(SC_OBJ_NAME, SC_TREE_ERROR, __FILE__, __LINE__);
+		while (++iter < SC_MAX_CYCLE_SUPPORT)
+		{
+			cw_create_instance_queue(&p_queue);
+			p_queue->game_ref = p_game_ref;
+			p_scheduler_instance->avl_tree_timeline_on
+			? (p_scheduler_instance->pa_avl_tree_timeline[iter] = p_queue)
+			: (p_scheduler_instance->pa_list_timeline[iter] = p_queue);
+		}
 	}
+	else
+		p_scheduler_instance->p_processes_list = NULL;
 }
 
-extern void	cw_scheduler_functions_linker(t_scheduler *p_scheduler_instance)
+extern void		cw_scheduler_functions_linker(t_scheduler *p_scheduler_instance, t_corewar *p_game_ref)
 {
-	p_scheduler_instance->cw_queues_init = cw_queues_init;
-	p_scheduler_instance->cw_kick_players = cw_kick_players;
-	p_scheduler_instance->cw_queues_init = cw_queues_init;
-	p_scheduler_instance->cw_insert_player = cw_insert_player;
-	p_scheduler_instance->cw_insert_process = cw_insert_process;
-	p_scheduler_instance->cw_list_process = cw_list_process;
+	p_scheduler_instance->cw_data_struct_init = cw_data_struct_init;
+	p_scheduler_instance->cw_deadline = cw_deadline;
+	if (p_game_ref)
+		if (p_game_ref->timeline_avl_tree_mode || p_game_ref->timeline_list_mode)
+			p_scheduler_instance->cw_execution_processes = cw_timeline_execution_processes;
+		else
+			p_scheduler_instance->cw_execution_processes = cw_ordinary_execution_processes;
+	else
+		p_scheduler_instance->cw_execution_processes = cw_ordinary_execution_processes;
 }
+
+// int deleted_count;
+
+	// while (p_game_instance->carriages_amount > 0 && ++p_game_instance->p_arena_obj->cycle)
+	// {
+	// 	p_game_instance->p_scheduler->pa_timeline[p_game_instance->p_arena_obj->cycle]->cw_exec_processes(p_game_instance->p_scheduler->pa_timeline[p_game_instance->p_arena_obj->cycle], p_game_instance->p_scheduler->pa_timeline[p_game_instance->p_arena_obj->cycle]->p_root);
+	// 	//p_game_instance->p_scheduler->pa_timeline[p_game_instance->p_arena_obj->cycle]->cw_print_content(p_game_instance->p_scheduler->pa_timeline[p_game_instance->p_arena_obj->cycle], p_game_instance->p_scheduler->pa_timeline[p_game_instance->p_arena_obj->cycle]->p_root, 0);
+	// 	if (p_game_instance->p_arena_obj->cw_time_to_check(p_game_instance->p_arena_obj, p_game_instance->last_check_cycle))
+	// 	{
+	// 		p_game_instance->p_arena_obj->check_amount += 1;
+	// 		p_game_instance->last_check_cycle = p_game_instance->p_arena_obj->cycle;
+	// 		deleted_count = 0;
+	// 		for (int i = 0; i < p_game_instance->p_scheduler->processes_amount; ++i)
+	// 		{
+	// 			p_game_instance->p_scheduler->p_carriage_obj ? p_game_instance->p_scheduler->p_carriage_obj->p_owner->live_amount = 0 : CW_FALSE;
+	// 			if (p_game_instance->p_scheduler->p_carriage_obj && (p_game_instance->p_arena_obj->cycle_to_die <= (p_game_instance->p_arena_obj->cycle - p_game_instance->p_scheduler->p_carriage_obj->last_speak_cycle) || p_game_instance->p_arena_obj->cycle_to_die <= 0))
+	// 			{
+	// 				t_process      *p_tmp_carrriage;
+
+	// 				p_tmp_carrriage = p_game_instance->p_scheduler->p_carriage_obj;
+	// 				p_game_instance->p_scheduler->p_carriage_obj->kill = CW_TRUE;
+	// 				if (p_game_instance->p_scheduler->p_carriage_obj)
+	// 				{
+	// 					if (p_game_instance->p_scheduler->p_carriage_obj->p_next == p_game_instance->p_scheduler->p_carriage_obj)
+	// 						p_game_instance->p_scheduler->p_carriage_obj = NULL;
+	// 					else
+	// 					{
+	// 						p_game_instance->p_scheduler->p_carriage_obj->p_prev->p_next = p_game_instance->p_scheduler->p_carriage_obj->p_next;
+	// 						p_game_instance->p_scheduler->p_carriage_obj->p_next->p_prev = p_game_instance->p_scheduler->p_carriage_obj->p_prev;
+	// 						p_game_instance->p_scheduler->p_carriage_obj = p_game_instance->p_scheduler->p_carriage_obj->p_next;
+	// 					}
+	// 				}
+    //     			deleted_count += 1;
+	// 			}
+	// 			else
+	// 				p_game_instance->p_scheduler->p_carriage_obj ? p_game_instance->p_scheduler->p_carriage_obj = p_game_instance->p_scheduler->p_carriage_obj->p_next : CW_FALSE;
+	// 		}
+	// 		if (p_game_instance->p_arena_obj->live_amount >= NBR_LIVE || p_game_instance->p_arena_obj->check_amount >= MAX_CHECKS)
+	// 		{
+	// 			p_game_instance->p_arena_obj->cycle_to_die -= CYCLE_DELTA;
+	// 			p_game_instance->p_arena_obj->check_amount = 0;
+	// 		}
+	// 		p_game_instance->carriages_amount -= deleted_count;
+	// 		p_game_instance->p_arena_obj->live_amount = 0;
+	// 	}
+	// 	if (p_game_instance->cycle_dump == p_game_instance->p_arena_obj->cycle && p_game_instance->carriages_amount > 0)
+	// 		p_game_instance->p_arena_obj->cw_print_field(p_game_instance->p_arena_obj);
+	// }

@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 18:33:42 by vrichese          #+#    #+#              #
-#    Updated: 2019/11/09 19:28:37 by vrichese         ###   ########.fr        #
+#    Updated: 2019/11/11 21:00:09 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,16 +36,18 @@ VM_SOURCE		:=		cw_process_obj.c						\
 						cw_error_manager.c						\
 						cw_game_object.c						\
 							cw_game_functions.c					\
-							cw_essence_init.c					\
+							cw_game_essence_init.c				\
 							cw_game_process.c					\
 						cw_callback.c							\
 						cw_scheduler_object.c					\
 							cw_scheduler_functions.c			\
+							cw_scheduler_insertion.c			\
 								cw_queue_object.c				\
 									cw_queue_functions.c		\
+									cw_queue_avl_tree_functions.c\
 						cw_main.c
 
-VIS_SOURCE		:=		cr_vis_buildmap.c	\
+#VIS_SOURCE		:=		cr_vis_buildmap.c	\
 						cr_vis_control.c	\
 						cr_vis_init.c		\
 						cr_vis_main.c		\
