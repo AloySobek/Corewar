@@ -63,7 +63,7 @@ static void		cw_delete_process(t_scheduler *p_scheduler_instance, t_process **p_
 
 	if (*p_deleting_process)
 	{
-		if (*p_deleting_process == p_scheduler_instance->p_processes_list)
+		if (*p_deleting_process == (*p_deleting_process)->p_next)
 		{
 			(*p_deleting_process)->cw_destructor(p_deleting_process);
 			p_scheduler_instance->p_processes_list = NULL;
@@ -73,7 +73,7 @@ static void		cw_delete_process(t_scheduler *p_scheduler_instance, t_process **p_
 			(*p_deleting_process)->p_prev->p_next = (*p_deleting_process)->p_next;
 			(*p_deleting_process)->p_next->p_prev = (*p_deleting_process)->p_prev;
 			tmp = *p_deleting_process;
-			(*p_deleting_process) = (*p_deleting_process)->p_next;
+			*p_deleting_process = (*p_deleting_process)->p_next;
 			tmp->cw_destructor(&tmp);
 		}
 		p_scheduler_instance->processes_amount -= 1;

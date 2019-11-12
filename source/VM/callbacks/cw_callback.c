@@ -231,5 +231,6 @@ void	aff_exec(t_corewar *p_game_obj)
 	p_game_obj->p_working_process->cw_parse_types(p_game_obj->p_working_process, p_game_obj->p_arena_obj);
 	if (p_game_obj->p_working_process->error_ocurred) return ;
 	p_game_obj->p_working_process->cw_read_operation(p_game_obj->p_working_process, p_game_obj->p_arena_obj, p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1], p_game_obj->p_working_process->args >> 6 & 0x03);
-	//ft_printf("%c", p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.char_value);
+	if (p_game_obj->aff_hide)
+		ft_printf("%c", p_game_obj->p_arena_obj->pa_buffer_set[CW_VALUE_BUF_1]->s_types.char_value);
 }

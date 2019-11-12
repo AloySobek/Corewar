@@ -16,8 +16,7 @@ static void		cw_start_execution(t_corewar *p_game_instance)
 {
 	while (p_game_instance->p_scheduler->processes_amount && ++p_game_instance->p_arena_obj->cycle)
 	{
-		if (p_game_instance->p_scheduler->nearest_cycle == p_game_instance->p_arena_obj->cycle)
-			p_game_instance->p_scheduler->cw_execution_processes(p_game_instance->p_scheduler, p_game_instance);
+		p_game_instance->p_scheduler->cw_execution_processes(p_game_instance->p_scheduler, p_game_instance);
 		if (p_game_instance->p_arena_obj->cw_time_to_check(p_game_instance->p_arena_obj, p_game_instance->last_check_cycle))
 			p_game_instance->p_scheduler->cw_deadline(p_game_instance->p_scheduler, p_game_instance);
 		if (p_game_instance->dump_cycle == p_game_instance->p_arena_obj->cycle && p_game_instance->p_scheduler->processes_amount)

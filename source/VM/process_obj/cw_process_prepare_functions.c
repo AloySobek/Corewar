@@ -18,8 +18,6 @@ void	cw_exec_command(t_process *p_process_instance, t_corewar *p_game_obj)
 	{
 		p_process_instance->cw_move_to(p_process_instance, 1);
 		p_process_instance->nearest_cycle = p_game_obj->p_arena_obj->cycle + 1;
-		if (p_process_instance->nearest_cycle < p_game_obj->p_scheduler->nearest_cycle)
-			p_game_obj->p_scheduler->nearest_cycle = p_process_instance->nearest_cycle;
 	}
 	else if (p_process_instance->nearest_cycle == p_game_obj->p_arena_obj->cycle)
 	{
@@ -27,8 +25,6 @@ void	cw_exec_command(t_process *p_process_instance, t_corewar *p_game_obj)
 		p_process_instance->p_current_command = NULL;
 		p_process_instance->waiting_time = 0;
 		p_process_instance->nearest_cycle = p_game_obj->p_arena_obj->cycle + 1;
-		if (p_process_instance->nearest_cycle < p_game_obj->p_scheduler->nearest_cycle)
-			p_game_obj->p_scheduler->nearest_cycle = p_process_instance->nearest_cycle;
 	}
 }
 
@@ -38,8 +34,6 @@ void	cw_set_command_time(t_process *p_process_instance, t_corewar *p_game_obj)
 		return ;
 	p_process_instance->p_current_command = p_process_instance->pp_command_container[p_game_obj->p_arena_obj->p_field[p_process_instance->current_location]];
 	p_process_instance->nearest_cycle = p_game_obj->p_arena_obj->cycle + p_process_instance->p_current_command->waiting_time - 1;
-	if (p_process_instance->nearest_cycle < p_game_obj->p_scheduler->nearest_cycle)
-		p_game_obj->p_scheduler->nearest_cycle = p_process_instance->nearest_cycle;
 	p_process_instance->cw_save_pos(p_process_instance, PR_MAIN_SAVE);
 	p_process_instance->error_ocurred = CW_FALSE;
 	p_process_instance->offset = 0;

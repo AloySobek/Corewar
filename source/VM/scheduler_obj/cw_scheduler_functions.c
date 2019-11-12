@@ -22,11 +22,12 @@ static void		cw_deadline(t_scheduler *p_scheduler_instance, t_corewar *p_game_re
 	iter = p_scheduler_instance->p_processes_list;
 	check_point = p_scheduler_instance->processes_amount;
 	p_game_ref->p_arena_obj->check_amount += 1;
+	ft_printf("%d\n", p_game_ref->p_arena_obj->cycle);
 	p_game_ref->last_check_cycle = p_game_ref->p_arena_obj->cycle;
-	while (++i < check_point && p_scheduler_instance->p_processes_list)
+	while (++i < check_point && iter)
 	{
-		iter ? iter->p_owner->live_amount = 0 : 0;
-		if (iter && (p_game_ref->p_arena_obj->cycle_to_die <= (p_game_ref->p_arena_obj->cycle - iter->last_speak_cycle) || p_game_ref->p_arena_obj->cycle_to_die <= 0))
+		iter->p_owner->live_amount = 0;
+		if (p_game_ref->p_arena_obj->cycle_to_die <= (p_game_ref->p_arena_obj->cycle - iter->last_speak_cycle) || p_game_ref->p_arena_obj->cycle_to_die <= 0)
 			p_scheduler_instance->cw_delete_process(p_scheduler_instance, &iter, p_game_ref->p_arena_obj->cycle);
 		else
 			iter ? iter = iter->p_next : 0;
@@ -53,6 +54,15 @@ static void		cw_ordinary_execution_processes(t_scheduler *p_scheduler_instance, 
 	i = CW_ITERATOR;
 	iter = p_scheduler_instance->p_processes_list;
 	check_point = p_scheduler_instance->processes_amount;
+	//if (p_game_ref->p_arena_obj->cycle == 24402)
+	//{
+		ft_printf("%d\n", check_point);
+		for (int i = 0; i < p_scheduler_instance->processes_amount; ++i)
+		{
+			ft_printf("%d\n", p_scheduler_instance->p_processes_list->id);
+			p_scheduler_instance->p_processes_list = p_scheduler_instance->p_processes_list->p_next;
+		}
+	//}
 	while (++i < check_point)
 	{
 		p_game_ref->p_working_process = iter;
