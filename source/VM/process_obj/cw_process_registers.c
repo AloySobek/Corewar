@@ -6,31 +6,11 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:29:33 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 16:04:10 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/12 12:46:44 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-void	cw_reg_check(t_process *p_carriage_instance, t_arena *p_arena_obj, int type, int *found)
-{
-	if (!*found)
-		return ;
-	if (type == CW_REG_CODE)
-	{
-		p_carriage_instance->offset += CW_REG_CODE_SIZE;
-		if (p_arena_obj->p_field[(p_carriage_instance->current_location + p_carriage_instance->offset) % MEM_SIZE] < 1
-		|| p_arena_obj->p_field[(p_carriage_instance->current_location + p_carriage_instance->offset) % MEM_SIZE] > 16)
-		{
-			p_carriage_instance->error_ocurred = CW_TRUE;
-			*found = CW_FALSE;
-		}
-	}
-	else if (type == CW_DIR_CODE)
-		p_carriage_instance->offset += p_carriage_instance->p_current_command->dir_size;
-	else if (type == CW_IND_CODE)
-		p_carriage_instance->offset += CW_IND_CODE_SIZE;
-}
 
 void	cw_copy_reg(t_process *p_carriage_instance, t_process *p_copying_carriage)
 {

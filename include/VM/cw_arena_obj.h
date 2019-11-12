@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:07:10 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 15:13:39 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:54:21 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@
 # define AR_LIVE_AMOUNT_I	p_arena_instance->live_amount
 # define AR_BUFFERS_I		p_arena_instance->pa_buffer_set
 # define AR_FIELD_I			p_arena_instance->p_field
+# define AR_SPARE_BUF_I		AR_BUFFERS_I[CW_SPARE_BUF]
 # define AR_SYSTEM_BUF_I	AR_BUFFERS_I[CW_SYSTEM_BUF]
+# define AR_VALUE_BUF_1_I	AR_BUFFERS_I[CW_VALUE_BUF_1]
+# define AR_VALUE_BUF_2_I	AR_BUFFERS_I[CW_VALUE_BUF_2]
+# define AR_VALUE_BUF_3_I	AR_BUFFERS_I[CW_VALUE_BUF_3]
 
 # define AR_CYCLE_O			p_arena_obj->cycle
 # define AR_WINNER_O		p_arena_obj->p_winner
@@ -32,6 +36,11 @@
 # define AR_BUFFERS_O		p_arena_obj->pa_buffer_set
 # define AR_FIELD_O			p_arena_obj->p_field
 # define AR_SYSTEM_BUF_O	AR_BUFFERS_O[CW_SYSTEM_BUF]
+# define AR_SPARE_BUF_O		AR_BUFFERS_O[CW_SPARE_BUF]
+# define AR_SYSTEM_BUF_O	AR_BUFFERS_O[CW_SYSTEM_BUF]
+# define AR_VALUE_BUF_1_O	AR_BUFFERS_O[CW_VALUE_BUF_1]
+# define AR_VALUE_BUF_2_O	AR_BUFFERS_O[CW_VALUE_BUF_2]
+# define AR_VALUE_BUF_3_O	AR_BUFFERS_O[CW_VALUE_BUF_3]
 
 # define AR_DUMP_EXIT		1
 

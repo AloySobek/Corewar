@@ -5,28 +5,16 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(gdb) Bash on Windows Launch",
+			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "test",
-			"args": [],
+			"program": "${workspaceFolder}/corewar",
+			"args": ["samples/champs/jumper.cor"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
-			"pipeTransport": {
-				"debuggerPath": "/usr/bin/gdb",
-				"pipeProgram": "${env:windir}\\system32\\bash.exe",
-				"pipeArgs": ["-c"],
-				"pipeCwd": ""
-			},
-			"setupCommands": [
-				{
-					"description": "Enable pretty-printing for gdb",
-					"text": "-enable-pretty-printing",
-					"ignoreFailures": true
-				}
-			]
+			"MIMode": "lldb"
 		}
 	]
 }

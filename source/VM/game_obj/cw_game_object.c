@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 16:14:01 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 20:58:00 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:33:48 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	cw_destructor(t_corewar **pp_game_instance)
 {
 	t_iter	iter;
 
-	iter = CW_ITERATOR;
+	iter = CW_BEGIN_FROM_ZERO;
 	while (++iter < CW_COMMAND_AMOUNT)
 		(*pp_game_instance)->pa_commands[iter]->
 			cw_destructor(&(*pp_game_instance)->pa_commands[iter]);

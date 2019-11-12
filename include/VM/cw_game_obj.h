@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:15:38 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 19:23:24 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:30:57 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,39 @@
 
 # define CW_COMMAND_AMOUNT	16 + 1
 
-# define GA_SCHEDULER_I	p_game_instance->p_scheduler
-# define GA_ID_I		p_game_instance->custom_id
-# define GA_SC_LIST_I	GA_SCHEDULER_I->p_players_list
-# define GA_SC_LISTR_I	GA_SCHEDULER_I->p_processes_list
-# define GA_SC_PL_AM_I	GA_SCHEDULER_I->players_amount
+# define GA_DUMP_I			p_game_instance->dump_cycle
+# define GA_LAST_CHECK_I	p_game_instance->last_check_cycle
+# define GA_ARENA_OBJ_I		p_game_instance->p_arena_obj
+# define GA_WORK_UNIT_I		p_game_instance->p_working_process
+# define GA_ITERATOR_I		p_game_instance->custom_id
 
-# define GA_OBJ_NAME	"GAME"
-# define GA_OBJ_ERROR	"Memory for GAME has not been allocated"
-# define GA_KEY_ERROR	"Key in the args has not been recognize"
+# define GA_SCHEDULER_I		p_game_instance->p_scheduler
+# define GA_ID_I			p_game_instance->custom_id
+# define GA_SC_PL_I			GA_SCHEDULER_I->p_players_list
+# define GA_SC_PR_I			GA_SCHEDULER_I->p_processes_list
+# define GA_SC_PL_AM_I		GA_SCHEDULER_I->players_amount
+# define GA_SC_PR_AM_I		GA_SCHEDULER_I->processes_amount
+# define GA_TREE_TIME_I		p_game_instance->timeline_avl_tree_mode
+# define GA_LIST_TIME_I		p_game_instance->timeline_list_mode
+
+# define GA_SCHEDULER_O		p_game_obj->p_scheduler
+# define GA_WORK_UNIT_O		p_game_obj->p_working_process
+# define GA_ARENA_OBJ_O		p_game_obj->p_arena_obj
+# define GA_ITERATOR_O		p_game_obj->custom_id
+# define GA_SC_PL_AM_O		GA_SCHEDULER_O->players_amount
+# define GA_SC_PL_O			GA_SCHEDULER_O->p_players_list
+
+# define GA_TREE_TIME_O		p_game_obj->timeline_avl_tree_mode
+# define GA_LIST_TIME_O		p_game_obj->timeline_list_mode
+
+# define GA_OBJ_NAME		"GAME"
+# define GA_OBJ_ERROR		"Memory for GAME has not been allocated"
+# define GA_KEY_ERROR		"Key in the args has not been recognize"
+# define GA					 p_game_obj->AR_VALUE_BUF_3_O, GA_THIRD_ARG
+
+# define GA_FIRST_ARG		GA_WORK_UNIT_O->args >> 6 & 0x03
+# define GA_SECOND_ARG		GA_WORK_UNIT_O->args >> 4 & 0x03
+# define GA_THIRD_ARG		GA_WORK_UNIT_O->args >> 2 & 0x03
 
 typedef struct			s_corewar
 {
@@ -57,6 +81,7 @@ typedef struct			s_corewar
 	t_method			(*cw_introduce_players)					(t_corewar *);
 	t_method			(*cw_congratulations)					(t_corewar *);
 	t_method			(*cw_start_execution)					(t_corewar *);
+	t_method			(*cw_graphic_execution)					(t_corewar *);
 	t_method			(*cw_destructor)						(t_corewar **);
 }						t_corewar;
 

@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 18:33:42 by vrichese          #+#    #+#              #
-#    Updated: 2019/11/11 21:00:09 by vrichese         ###   ########.fr        #
+#    Updated: 2019/11/12 15:32:51 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,10 @@ VM_SOURCE		:=		cw_process_obj.c						\
 							cw_game_functions.c					\
 							cw_game_essence_init.c				\
 							cw_game_process.c					\
-						cw_callback.c							\
+						cw_and_or_xor_zjmp_ldi.c				\
+						cw_live_ld_st_add_sub.c					\
+						cw_sti_fork_lld_lldi_lfork.c			\
+						cw_aff.c								\
 						cw_scheduler_object.c					\
 							cw_scheduler_functions.c			\
 							cw_scheduler_insertion.c			\
@@ -74,7 +77,7 @@ OBJ				:=		$(VM_SOURCE:.c=.o)
 VIS_OBJ			:=		$(VIS_SOURCE:.c=.o)
 OBJ_WITH_DIR	:=		$(addprefix $(DIR_BIN), $(OBJ) $(VIS_OBJ))
 
-#F				:=		-Wall -Werror -Wextra
+#F				:=		-O3 -Wall -Werror -Wextra
 
 LIBFT			:=		libft.a
 LIBFTPRINTF		:=		libftprintf.a
@@ -98,13 +101,13 @@ vpath %.a $(DIR_LIBFT) $(DIR_PRINTF)
 all: $(NAME)
 
 $(NAME): $(OBJ) $(VIS_OBJ) $(LIBFT) $(LIBFTPRINTF)
-	gcc -g $(F) $(OBJ_WITH_DIR) -lncurses -o $@ $(DIR_LIBFT)$(LIBFT) $(DIR_PRINTF)$(LIBFTPRINTF)
+	gcc $(F) $(OBJ_WITH_DIR) -lncurses -o $@ $(DIR_LIBFT)$(LIBFT) $(DIR_PRINTF)$(LIBFTPRINTF)
 
 $(OBJ):%.o:%.c $(VM_HEADERS) | $(DIR_BIN)
-	gcc -g $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE) -c $< -o $(DIR_BIN)$@
+	gcc $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE) -c $< -o $(DIR_BIN)$@
 
 $(VIS_OBJ):%.o:%.c $(VIS_HEADER)
-	gcc -g $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE)  -c $< -o $(DIR_BIN)$@
+	gcc $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE)  -c $< -o $(DIR_BIN)$@
 
 $(DIR_BIN):
 	mkdir -p $@

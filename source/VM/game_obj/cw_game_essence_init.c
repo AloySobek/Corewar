@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:39:29 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 21:30:53 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:33:19 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,21 @@ static void		cw_processes_obj_init(t_corewar *p_game_instance)
 	int			iter;
 
 	iter = CW_ITERATOR;
-	cw_scheduler_insertion_linker(p_game_instance->p_scheduler, p_game_instance);
-	cw_scheduler_functions_linker(p_game_instance->p_scheduler, p_game_instance);
+	cw_scheduler_insertion_linker(GA_SCHEDULER_I, p_game_instance);
+	cw_scheduler_functions_linker(GA_SCHEDULER_I, p_game_instance);
+	if (GA_TREE_TIME_I || GA_LIST_TIME_I)
+		GA_SCHEDULER_I->cw_timeline_init(GA_SCHEDULER_I, p_game_instance);
 	while (++iter < GA_SCHEDULER_I->players_amount)
 	{
 		cw_create_instance_process(&p_process_obj);
-		p_process_obj->id = p_game_instance->p_scheduler->processes_amount + 1;
+		p_process_obj->id = GA_SCHEDULER_I->processes_amount + 1;
 		p_process_obj->pp_command_container = p_game_instance->pa_commands;
 		p_process_obj->cw_set_owner(p_process_obj, GA_SCHEDULER_I);
 		p_process_obj->cw_write_owner_id_to_reg(p_process_obj);
 		GA_SCHEDULER_I->cw_insert_process(GA_SCHEDULER_I, p_process_obj, 1);
 	}
 	p_game_instance->numerate_carriage = GA_SCHEDULER_I->processes_amount;
-	p_game_instance->p_arena_obj->p_winner = GA_SC_LISTR_I->p_owner;
+	p_game_instance->p_arena_obj->p_winner = GA_SC_PR_I->p_owner;
 }
 
 static int		cw_keys_parse(t_corewar *p_game_instance,
@@ -88,8 +90,8 @@ static void		cw_players_obj_init(t_corewar *p_game_instance, int c, char **v)
 		}
 	GA_SCHEDULER_I->players_amount < 1 || GA_SCHEDULER_I->players_amount > 4 ?
 	cw_error_catcher(GA_OBJ_NAME, GA_KEY_ERROR, __FILE__, __LINE__) : (i = -1);
-	while (++i < GA_SC_PL_AM_I && (GA_SC_LIST_I = GA_SC_LIST_I->p_prev))
-		!GA_SC_LIST_I->id ? GA_SC_LIST_I->cw_set_id(GA_SC_LIST_I, &b, 1, 0) : 0;
+	while (++i < GA_SC_PL_AM_I && (GA_SC_PL_I = GA_SC_PL_I->p_prev))
+		!GA_SC_PL_I->id ? GA_SC_PL_I->cw_set_id(GA_SC_PL_I, &b, 1, 0) : 0;
 }
 
 static void		cw_arena_scheduler_command_obj_init(t_corewar *p_game_instance)
@@ -104,7 +106,6 @@ static void		cw_arena_scheduler_command_obj_init(t_corewar *p_game_instance)
 	p_arena_obj->cw_buffer_init(p_arena_obj);
 	p_game_instance->p_arena_obj = p_arena_obj;
 	cw_create_instance_scheduler(&p_scheduler_obj);
-	p_scheduler_obj->cw_data_struct_init(p_scheduler_obj, p_game_instance);
 	p_game_instance->p_scheduler = p_scheduler_obj;
 	while (++iter < CW_COMMAND_AMOUNT)
 	{

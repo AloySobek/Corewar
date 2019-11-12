@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 18:57:10 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/09 19:35:02 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/12 12:49:01 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ extern void	cw_create_instance_process(t_process **pp_process_obj)
 	ft_memset(*pp_process_obj, 0, sizeof(t_process));
 	(*pp_process_obj)->cw_constructor = cw_constructor;
 	(*pp_process_obj)->cw_destructor = cw_destructor;
+	(*pp_process_obj)->cw_constructor(pp_process_obj);
 	cw_process_movements_functions_linker(*pp_process_obj);
 	cw_process_prepare_functions_linker(*pp_process_obj);
 	cw_process_read_write_functions_linker(*pp_process_obj);
 	cw_process_registers_functions_linker(*pp_process_obj);
-	(*pp_process_obj)->cw_constructor(pp_process_obj);
 }

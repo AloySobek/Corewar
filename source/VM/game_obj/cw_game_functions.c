@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:41:14 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 21:19:54 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:32:31 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static void	cw_write_code_to_memory(t_corewar *p_game_instance)
 		iter = CW_ITERATOR;
 		while (++iter < p_game_instance->p_scheduler->processes_amount)
 		{
-			pl_lo = MEM_SIZE / GA_SC_PL_AM_I * (GA_SC_LISTR_I->p_owner->id - 1);
+			pl_lo = MEM_SIZE / GA_SC_PL_AM_I * (GA_SC_PR_I->p_owner->id - 1);
 			code_iter = CW_ITERATOR;
-			GA_SC_LISTR_I->current_location = pl_lo;
+			GA_SC_PR_I->current_location = pl_lo;
 			while (pl_lo < MEM_SIZE / GA_SC_PL_AM_I *
-			(GA_SC_LISTR_I->p_owner->id - 1) + CHAMP_MAX_SIZE)
+			(GA_SC_PR_I->p_owner->id - 1) + CHAMP_MAX_SIZE)
 				p_game_instance->p_arena_obj->p_field[pl_lo++] =
-					GA_SC_LISTR_I->p_owner->p_code[++code_iter];
-			GA_SC_LISTR_I = GA_SC_LISTR_I->p_next;
+					GA_SC_PR_I->p_owner->p_code[++code_iter];
+			GA_SC_PR_I = GA_SC_PR_I->p_next;
 		}
 	}
 }

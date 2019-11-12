@@ -6,13 +6,14 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 14:46:34 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 22:04:25 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:22:18 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		cw_insert_player(t_scheduler *p_scheduler_instance, t_player *p_adding_player)
+static void		cw_insert_player(t_scheduler *p_scheduler_instance,
+									t_player *p_adding_player)
 {
 	if (p_adding_player)
 	{
@@ -25,8 +26,10 @@ static void		cw_insert_player(t_scheduler *p_scheduler_instance, t_player *p_add
 		else
 		{
 			p_adding_player->p_next = p_scheduler_instance->p_players_list;
-			p_adding_player->p_prev = p_scheduler_instance->p_players_list->p_prev;
-			p_scheduler_instance->p_players_list->p_prev->p_next = p_adding_player;
+			p_adding_player->p_prev =
+				p_scheduler_instance->p_players_list->p_prev;
+			p_scheduler_instance->p_players_list->p_prev->p_next =
+				p_adding_player;
 			p_scheduler_instance->p_players_list->p_prev = p_adding_player;
 			p_scheduler_instance->p_players_list = p_adding_player;
 		}
@@ -34,7 +37,8 @@ static void		cw_insert_player(t_scheduler *p_scheduler_instance, t_player *p_add
 	}
 }
 
-static void		cw_insert_process_to_list(t_scheduler *p_scheduler_instance, t_process *p_adding_process, int stub)
+static void		cw_insert_process_to_list(t_scheduler *p_scheduler_instance,
+										t_process *p_adding_process, int stub)
 {
 	if (p_adding_process)
 	{
@@ -47,8 +51,10 @@ static void		cw_insert_process_to_list(t_scheduler *p_scheduler_instance, t_proc
 		else
 		{
 			p_adding_process->p_next = p_scheduler_instance->p_processes_list;
-			p_adding_process->p_prev = p_scheduler_instance->p_processes_list->p_prev;
-			p_scheduler_instance->p_processes_list->p_prev->p_next = p_adding_process;
+			p_adding_process->p_prev =
+				p_scheduler_instance->p_processes_list->p_prev;
+			p_scheduler_instance->p_processes_list->p_prev->p_next =
+				p_adding_process;
 			p_scheduler_instance->p_processes_list->p_prev = p_adding_process;
 			p_scheduler_instance->p_processes_list = p_adding_process;
 		}
@@ -57,7 +63,8 @@ static void		cw_insert_process_to_list(t_scheduler *p_scheduler_instance, t_proc
 	}
 }
 
-static void		cw_delete_process(t_scheduler *p_scheduler_instance, t_process **p_deleting_process, t_mark mode)
+static void		cw_delete_process(t_scheduler *p_scheduler_instance,
+							t_process **p_deleting_process, t_mark mode)
 {
 	t_process	*tmp;
 
@@ -70,9 +77,14 @@ static void		cw_delete_process(t_scheduler *p_scheduler_instance, t_process **p_
 		}
 		else
 		{
-			(*p_deleting_process)->p_prev->p_next = (*p_deleting_process)->p_next;
-			(*p_deleting_process)->p_next->p_prev = (*p_deleting_process)->p_prev;
 			tmp = *p_deleting_process;
+			if (*p_deleting_process == p_scheduler_instance->p_processes_list)
+				p_scheduler_instance->p_processes_list =
+					(*p_deleting_process)->p_next;
+			(*p_deleting_process)->p_prev->p_next =
+				(*p_deleting_process)->p_next;
+			(*p_deleting_process)->p_next->p_prev =
+				(*p_deleting_process)->p_prev;
 			*p_deleting_process = (*p_deleting_process)->p_next;
 			tmp->cw_destructor(&tmp);
 		}
@@ -80,27 +92,33 @@ static void		cw_delete_process(t_scheduler *p_scheduler_instance, t_process **p_
 	}
 }
 
-static void		cw_insert_process_to_avl_queue(t_scheduler *p_scheduler_instance, t_process *p_adding_process, int cycle)
+static void		cw_insert_process_to_avl_queue(
+	t_scheduler *p_scheduler_instance, t_process *p_adding_process, int cycle)
 {
 	;
 }
 
-static void		cw_insert_process_to_list_queue(t_scheduler *p_scheduler_instance, t_process *p_adding_process, int cycle)
+static void		cw_insert_process_to_list_queue(
+	t_scheduler *p_scheduler_instance, t_process *p_adding_process, int cycle)
 {
 	;
 }
 
-extern void	cw_scheduler_insertion_linker(t_scheduler *p_scheduler_instance, t_corewar *p_game_ref)
+extern void		cw_scheduler_insertion_linker(t_scheduler *p_scheduler_instance,
+												t_corewar *p_game_ref)
 {
 	p_scheduler_instance->cw_insert_player = cw_insert_player;
 	p_scheduler_instance->cw_delete_process = cw_delete_process;
 	if (p_game_ref)
 		if (p_game_ref->timeline_avl_tree_mode)
-			p_scheduler_instance->cw_insert_process = cw_insert_process_to_avl_queue;
+			p_scheduler_instance->cw_insert_process =
+				cw_insert_process_to_avl_queue;
 		else if (p_game_ref->timeline_list_mode)
-			p_scheduler_instance->cw_insert_process = cw_insert_process_to_list_queue;
+			p_scheduler_instance->cw_insert_process =
+				cw_insert_process_to_list_queue;
 		else
-			p_scheduler_instance->cw_insert_process = cw_insert_process_to_list;
+			p_scheduler_instance->cw_insert_process =
+				cw_insert_process_to_list;
 	else
 		p_scheduler_instance->cw_insert_process = cw_insert_process_to_list;
 }

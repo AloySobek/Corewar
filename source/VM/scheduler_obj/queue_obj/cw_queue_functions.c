@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 19:10:26 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 20:51:11 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:11:10 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static void		cw_exec_tree_processes(t_queue *p_queue_instance, t_process *p_proc
 			p_queue_instance->game_ref->p_working_process = p_process_obj;
 			p_process_obj->cw_set_command_time(p_process_obj, p_queue_instance->game_ref->p_arena_obj);
 			p_process_obj->cw_exec_command(p_process_obj, p_queue_instance->game_ref);
-			p_queue_instance->game_ref->p_scheduler->pa_avl_tree_timeline[p_process_obj->nearest_cycle]->p_root =
-			p_queue_instance->game_ref->p_scheduler->pa_avl_tree_timeline[p_process_obj->nearest_cycle]->cw_enqueue
-			(p_queue_instance->game_ref->p_scheduler->pa_avl_tree_timeline[p_process_obj->nearest_cycle],
-			p_queue_instance->game_ref->p_scheduler->pa_avl_tree_timeline[p_process_obj->nearest_cycle]->p_root, p_process_obj);
+			p_queue_instance->game_ref->p_scheduler->pa_timeline[p_process_obj->nearest_cycle]->p_root =
+			p_queue_instance->game_ref->p_scheduler->pa_timeline[p_process_obj->nearest_cycle]->cw_enqueue
+			(p_queue_instance->game_ref->p_scheduler->pa_timeline[p_process_obj->nearest_cycle],
+			p_queue_instance->game_ref->p_scheduler->pa_timeline[p_process_obj->nearest_cycle]->p_root, p_process_obj);
 		}
 		else
 			p_process_obj->cw_destructor(&p_process_obj);
