@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:24:27 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/12 14:16:42 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:40:34 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		cw_deadline(t_scheduler *p_scheduler_instance,
 }
 
 static void		cw_ordinary_execution_processes(
-					t_scheduler *p_scheduler_instance, t_corewar *p_game_obj)
+			t_scheduler *p_scheduler_instance, t_corewar *p_game_obj, int cycle)
 {
 	t_process	*iter;
 	t_iterator	i;
@@ -58,12 +58,16 @@ static void		cw_ordinary_execution_processes(
 		iter->cw_exec_command(iter, p_game_obj);
 		iter = iter->p_next;
 	}
+	cycle = PR_STUB;
 }
 
 static void		cw_timeline_execution_processes(
-					t_scheduler *p_scheduler_instance, t_corewar *p_game_obj)
+			t_scheduler *p_scheduler_instance, t_corewar *p_game_obj, int cycle)
 {
-	;
+	p_scheduler_instance->pa_timeline[cycle]->
+	cw_exec_processes(p_scheduler_instance->pa_timeline[cycle],
+	p_scheduler_instance->pa_timeline[cycle]->p_root);
+	p_game_obj = NULL;
 }
 
 static void		cw_timeline_init(t_scheduler *p_scheduler_instance,
@@ -79,7 +83,7 @@ static void		cw_timeline_init(t_scheduler *p_scheduler_instance,
 	while (++iter < SC_MAX_CYCLE_SUPPORT)
 	{
 		cw_create_instance_queue(&p_queue);
-		p_queue->game_ref = p_game_obj;
+		p_queue->p_game_obj = p_game_obj;
 		p_scheduler_instance->pa_timeline[iter] = p_queue;
 	}
 }

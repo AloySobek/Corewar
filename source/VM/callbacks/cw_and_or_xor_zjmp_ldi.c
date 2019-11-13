@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 14:57:55 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/12 15:31:01 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/13 13:52:33 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	and_exec(t_corewar *p_game_obj)
 	p_game_obj->AR_VALUE_BUF_3_O->s_types.int_value =
 	p_game_obj->AR_VALUE_BUF_1_O->s_types.int_value &
 	p_game_obj->AR_VALUE_BUF_2_O->s_types.int_value;
-	GA_WORK_UNIT_O->cw_conversion_value_to_bytes(GA_WORK_UNIT_O,
-		p_game_obj->AR_VALUE_BUF_3_O, CW_INT);
+	GA_WORK_UNIT_O->cw_conversion(GA_WORK_UNIT_O,
+		p_game_obj->AR_VALUE_BUF_3_O, CW_INT, PR_VALUE);
 	GA_WORK_UNIT_O->cw_write_operation(GA_WORK_UNIT_O, GA_ARENA_OBJ_O,
 		p_game_obj->AR_VALUE_BUF_3_O, GA_THIRD_ARG);
 	GA_WORK_UNIT_O->cw_check_carry(GA_WORK_UNIT_O);
@@ -43,8 +43,8 @@ void	or_exec(t_corewar *p_game_obj)
 	p_game_obj->AR_VALUE_BUF_3_O->s_types.int_value =
 	p_game_obj->AR_VALUE_BUF_1_O->s_types.int_value |
 	p_game_obj->AR_VALUE_BUF_2_O->s_types.int_value;
-	GA_WORK_UNIT_O->cw_conversion_value_to_bytes(GA_WORK_UNIT_O,
-		p_game_obj->AR_VALUE_BUF_3_O, CW_INT);
+	GA_WORK_UNIT_O->cw_conversion(GA_WORK_UNIT_O,
+		p_game_obj->AR_VALUE_BUF_3_O, CW_INT, PR_VALUE);
 	GA_WORK_UNIT_O->cw_write_operation(GA_WORK_UNIT_O, GA_ARENA_OBJ_O,
 		p_game_obj->AR_VALUE_BUF_3_O, GA_THIRD_ARG);
 	GA_WORK_UNIT_O->cw_check_carry(GA_WORK_UNIT_O);
@@ -62,8 +62,8 @@ void	xor_exec(t_corewar *p_game_obj)
 	p_game_obj->AR_VALUE_BUF_3_O->s_types.int_value =
 	p_game_obj->AR_VALUE_BUF_1_O->s_types.int_value ^
 	p_game_obj->AR_VALUE_BUF_2_O->s_types.int_value;
-	GA_WORK_UNIT_O->cw_conversion_value_to_bytes(GA_WORK_UNIT_O,
-		p_game_obj->AR_VALUE_BUF_3_O, CW_INT);
+	GA_WORK_UNIT_O->cw_conversion(GA_WORK_UNIT_O,
+		p_game_obj->AR_VALUE_BUF_3_O, CW_INT, PR_VALUE);
 	GA_WORK_UNIT_O->cw_write_operation(GA_WORK_UNIT_O, GA_ARENA_OBJ_O,
 		p_game_obj->AR_VALUE_BUF_3_O, GA_THIRD_ARG);
 	GA_WORK_UNIT_O->cw_check_carry(GA_WORK_UNIT_O);

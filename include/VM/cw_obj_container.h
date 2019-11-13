@@ -6,12 +6,12 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:08:56 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 16:50:49 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:33:44 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CW_TYPEDEF_OBJECT_H
-# define CW_TYPEDEF_OBJECT_H
+#ifndef CW_OBJ_CONTAINER_H
+# define CW_OBJ_CONTAINER_H
 
 typedef struct s_scheduler	t_scheduler;
 typedef struct s_process	t_process;

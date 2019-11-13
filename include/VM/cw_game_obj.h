@@ -6,12 +6,12 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:15:38 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/12 15:30:57 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/13 20:52:36 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CW_GAME_OBJECT_H
-# define CW_GAME_OBJECT_H
+#ifndef CW_GAME_OBJ_H
+# define CW_GAME_OBJ_H
 
 # include "cw_obj_container.h"
 
@@ -51,43 +51,48 @@
 # define GA_SECOND_ARG		GA_WORK_UNIT_O->args >> 4 & 0x03
 # define GA_THIRD_ARG		GA_WORK_UNIT_O->args >> 2 & 0x03
 
+# define GA_WRITING_MODE	1
+# define GA_INTRO_MODE		-1
+
 typedef struct			s_corewar
 {
-	t_flag				timeline_avl_tree_mode;
-	t_flag				timeline_list_mode;
-	t_flag				starting_cycle;
-	t_flag				binary_output_mode;
-	t_flag				dump_cycle;
-	t_flag				custom_id;
-	t_flag				aff_hide;
-	t_flag				verbose;
-	t_flag				ncurses;
+	t_flag		timeline_avl_tree_mode;
+	t_flag		timeline_list_mode;
+	t_flag		starting_cycle;
+	t_flag		binary_output_mode;
+	t_flag		dump_cycle;
+	t_flag		custom_id;
+	t_flag		aff_hide;
+	t_flag		verbose;
+	t_flag		ncurses;
 
-	t_mark				last_check_cycle;
-	t_counter			numerate_carriage;
+	t_mark		last_check_cycle;
+	t_counter	numerate_carriage;
 
-	t_vis				*vis;
-	t_scheduler			*p_scheduler;
-	t_arena				*p_arena_obj;
-	t_command			*pa_commands[CW_COMMAND_AMOUNT];
+	t_vis		*vis;
+	t_scheduler	*p_scheduler;
+	t_arena		*p_arena_obj;
+	t_command	*pa_commands[CW_COMMAND_AMOUNT];
 
-	t_process			*p_working_process;
+	t_process	*p_working_process;
 
-	t_method			(*cw_constructor)						(t_corewar **);
-	t_method			(*cw_arena_scheduler_command_obj_init)	(t_corewar *);
-	t_method			(*cw_processes_obj_init)				(t_corewar *);
-	t_method			(*cw_players_obj_init)					(t_corewar *, int, char **);
-	t_method			(*cw_write_code_to_memory)				(t_corewar *);
-	t_method			(*cw_introduce_players)					(t_corewar *);
-	t_method			(*cw_congratulations)					(t_corewar *);
-	t_method			(*cw_start_execution)					(t_corewar *);
-	t_method			(*cw_graphic_execution)					(t_corewar *);
-	t_method			(*cw_destructor)						(t_corewar **);
+	t_method	(*cw_constructor)			(struct s_corewar **);
+	t_method	(*cw_arena_scheduler_command_obj_init)
+											(struct s_corewar *);
+	t_method	(*cw_processes_obj_init)	(struct s_corewar *);
+	t_method	(*cw_players_obj_init)		(struct s_corewar *, int, char **);
+	t_method	(*cw_write_code_to_memory)	(struct s_corewar *);
+	t_method	(*cw_introduce_players)		(struct s_corewar *);
+	t_method	(*cw_congratulations)		(struct s_corewar *);
+	t_method	(*cw_start_execution)		(struct s_corewar *);
+	t_method	(*cw_graphic_execution)		(struct s_corewar *);
+	t_method	(*cw_usage)					(struct s_corewar *);
+	t_method	(*cw_destructor)			(struct s_corewar **);
 }						t_corewar;
 
-void					cw_create_instance_game		(t_corewar **pp_game_obj);
-void					cw_game_process_linker		(t_corewar *p_game_instance);
-void					cw_essence_init_linker		(t_corewar *p_game_instance);
-void					cw_game_functions_linker	(t_corewar *p_game_instance);
+void					cw_create_instance_game	(t_corewar **pp_game_obj);
+void					cw_game_process_linker	(t_corewar *p_game_instance);
+void					cw_essence_init_linker	(t_corewar *p_game_instance);
+void					cw_game_functions_linker(t_corewar *p_game_instance);
 
 #endif

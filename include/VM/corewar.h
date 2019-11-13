@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 13:55:06 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/09 19:17:23 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:38:07 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
+
+# define VERBOSE				0
 
 /*
 **-------------------------------------
@@ -121,7 +123,9 @@ void							lldi_exec	(t_corewar *game);
 void							lfork_exec	(t_corewar *game);
 void							aff_exec	(t_corewar *game);
 
-void							cw_create_instance_process(t_process **pp_process_obj);
-void							cw_error_catcher(const char *obj_name, const char *reason, const char *file, int line);
+void							cw_error_catcher(const char *obj_name,
+													const char *reason,
+														const char *file,
+																int line);
 
 #endif

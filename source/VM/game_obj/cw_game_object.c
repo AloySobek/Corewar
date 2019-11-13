@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 16:14:01 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/12 15:33:48 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:39:18 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	cw_destructor(t_corewar **pp_game_instance)
 		cw_destructor(&(*pp_game_instance)->p_arena_obj);
 	(*pp_game_instance)->p_scheduler->
 		cw_destructor(&(*pp_game_instance)->p_scheduler);
-	//cr_vis_main(*pp_game_instance, V_CLEANUP);
 	free(*pp_game_instance);
 	*pp_game_instance = NULL;
 }

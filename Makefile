@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 18:33:42 by vrichese          #+#    #+#              #
-#    Updated: 2019/11/12 15:32:51 by vrichese         ###   ########.fr        #
+#    Updated: 2019/11/13 20:02:11 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,9 +45,9 @@ VM_SOURCE		:=		cw_process_obj.c						\
 						cw_scheduler_object.c					\
 							cw_scheduler_functions.c			\
 							cw_scheduler_insertion.c			\
-								cw_queue_object.c				\
-									cw_queue_functions.c		\
-									cw_queue_avl_tree_functions.c\
+								cw_queue_obj.c					\
+								cw_queue_functions.c			\
+								cw_queue_avl_tree_functions.c	\
 						cw_main.c
 
 #VIS_SOURCE		:=		cr_vis_buildmap.c	\
@@ -77,7 +77,7 @@ OBJ				:=		$(VM_SOURCE:.c=.o)
 VIS_OBJ			:=		$(VIS_SOURCE:.c=.o)
 OBJ_WITH_DIR	:=		$(addprefix $(DIR_BIN), $(OBJ) $(VIS_OBJ))
 
-#F				:=		-O3 -Wall -Werror -Wextra
+FLAGS			:=		-O3 -Wall -Werror -Wextra
 
 LIBFT			:=		libft.a
 LIBFTPRINTF		:=		libftprintf.a
@@ -101,13 +101,13 @@ vpath %.a $(DIR_LIBFT) $(DIR_PRINTF)
 all: $(NAME)
 
 $(NAME): $(OBJ) $(VIS_OBJ) $(LIBFT) $(LIBFTPRINTF)
-	gcc $(F) $(OBJ_WITH_DIR) -lncurses -o $@ $(DIR_LIBFT)$(LIBFT) $(DIR_PRINTF)$(LIBFTPRINTF)
+	gcc $(FLAGS) $(OBJ_WITH_DIR) -lncurses -o $@ $(DIR_LIBFT)$(LIBFT) $(DIR_PRINTF)$(LIBFTPRINTF)
 
 $(OBJ):%.o:%.c $(VM_HEADERS) | $(DIR_BIN)
-	gcc $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE) -c $< -o $(DIR_BIN)$@
+	gcc $(FLAGS) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE) -c $< -o $(DIR_BIN)$@
 
 $(VIS_OBJ):%.o:%.c $(VIS_HEADER)
-	gcc $(F) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE)  -c $< -o $(DIR_BIN)$@
+	gcc $(FLAGS) -I $(DIR_LIBFT)includes -I $(DIR_PRINTF)includes -I $(VM_DIR_INCLUDE) -I $(VIS_DIR_INCLUDE)  -c $< -o $(DIR_BIN)$@
 
 $(DIR_BIN):
 	mkdir -p $@

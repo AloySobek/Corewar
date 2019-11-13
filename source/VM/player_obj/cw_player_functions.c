@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:56:19 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/11 19:58:26 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/13 15:38:42 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static void	cw_self_validate(t_player *p_player_instance)
 		cw_error_catcher(PL_OBJECT_NAME, PL_TOO_BIG_SIZE, __FILE__, __LINE__);
 	while (!PL_CODE_I[check_size])
 		--check_size;
-	if (PL_CODE_SIZE_I != check_size + 1)
-		cw_error_catcher(PL_OBJECT_NAME, PL_INCONSISTENCY, __FILE__, __LINE__);
 }
 
 static void	cw_self_build(t_player *p_player_instance)

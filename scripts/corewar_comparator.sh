@@ -26,7 +26,7 @@ if [[ ! "$CYCLE" =~ ^[0-9]+$ ]]; then
 fi
 
 ${OG_COREWAR} -d $CYCLE $@ >og_dump
-${MY_COREWAR} -d $CYCLE $@ >my_dump
+${MY_COREWAR} -t -d $CYCLE $@ >my_dump
 
 if diff og_dump my_dump &>/dev/null; then
 	echo "No difference at cycle $CYCLE"

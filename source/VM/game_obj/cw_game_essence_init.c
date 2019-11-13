@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:39:29 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/12 14:33:19 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/13 21:13:24 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ static int		cw_keys_parse(t_corewar *p_game_instance,
 	t_mark		pass;
 
 	pass = CW_FALSE;
-	while (*++(argv[iter]))
+	while (*++(argv[iter]) && !GA_DUMP_I)
 		if (*(argv[iter]) == 's' && iter + 1 < argc && (pass = CW_TRUE))
 			p_game_instance->starting_cycle = ft_atoi(argv[iter + 1]);
-		else if (*(argv[iter]) == 'd' && iter + 1 < argc && (pass = CW_TRUE))
+		else if (!ft_strcmp(argv[iter], "dump") && iter + 1 < argc && (pass = CW_TRUE))
 			p_game_instance->dump_cycle = ft_atoi(argv[iter + 1]);
 		else if (*(argv[iter]) == 'n' && iter + 1 < argc && (pass = CW_TRUE))
 			p_game_instance->custom_id = ft_atoi(argv[iter + 1]);
@@ -61,7 +61,7 @@ static int		cw_keys_parse(t_corewar *p_game_instance,
 		else if (*(argv[iter]) == 'a')
 			p_game_instance->aff_hide = CW_TRUE;
 		else
-			;
+			p_game_instance->cw_usage(p_game_instance);
 	return (pass);
 }
 
