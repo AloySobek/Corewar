@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 15:56:19 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/13 15:38:42 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:17:06 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	cw_self_build(t_player *p_player_instance)
 	t_iter	g_i;
 	t_iter	l_i;
 
-	g_i = -1;
+	g_i = CW_ITERATOR;
 	while (++g_i < BINARY_LABEL)
 		PL_BINARY_LABEL_I |= PL_SOURCE_I[g_i] << ((sizeof(int) - g_i - 1) * 8);
 	l_i = 0;

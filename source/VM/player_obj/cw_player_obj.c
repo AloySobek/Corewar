@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 18:59:14 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/09 18:38:54 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:17:59 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 static void	cw_constructor(t_player **pp_player_instance)
 {
 	if (!((*pp_player_instance)->p_source =
-	(unsigned char *)malloc(sizeof(unsigned char) * CODE)))
+	(unsigned char *)malloc(sizeof(unsigned char) * CODE + 1)))
 		cw_error_catcher(PL_OBJECT_NAME, PL_SOURCE_ERROR, __FILE__, __LINE__);
 	if (!((*pp_player_instance)->p_code =
-	(unsigned char *)malloc(sizeof(unsigned char) * CHAMP_MAX_SIZE)))
+	(unsigned char *)malloc(sizeof(unsigned char) * CHAMP_MAX_SIZE + 1)))
 		cw_error_catcher(PL_OBJECT_NAME, PL_SOURCE_ERROR, __FILE__, __LINE__);
 	if (!((*pp_player_instance)->p_comment =
-	(unsigned char *)malloc(sizeof(unsigned char) * COMMENT_LENGTH)))
+	(unsigned char *)malloc(sizeof(unsigned char) * COMMENT_LENGTH + 1)))
 		cw_error_catcher(PL_OBJECT_NAME, PL_SOURCE_ERROR, __FILE__, __LINE__);
 	if (!((*pp_player_instance)->p_name =
-	(unsigned char *)malloc(sizeof(unsigned char) * PROG_NAME_LENGTH)))
+	(unsigned char *)malloc(sizeof(unsigned char) * PROG_NAME_LENGTH + 1)))
 		cw_error_catcher(PL_OBJECT_NAME, PL_SOURCE_ERROR, __FILE__, __LINE__);
 	ft_memset((*pp_player_instance)->p_source, 0, CODE);
 	ft_memset((*pp_player_instance)->p_code, 0, CHAMP_MAX_SIZE);

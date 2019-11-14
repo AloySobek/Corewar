@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:08:56 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/13 17:33:44 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:03:45 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,5 @@ typedef int					t_mark;
 typedef int					t_tmp;
 typedef int					t_attribute;
 typedef int					t_iter;
-
-# include "cw_arena_obj.h"
-# include "cw_buffer_obj.h"
-# include "cw_process_obj.h"
-# include "cw_command_obj.h"
-# include "cw_game_obj.h"
-# include "cw_player_obj.h"
-# include "cw_queue_obj.h"
-# include "cw_scheduler_obj.h"
 
 #endif
