@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 14:46:34 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 17:15:47 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 20:09:17 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,10 @@ extern void		cw_scheduler_insertion_linker(t_scheduler *p_scheduler_instance,
 				cw_insert_process_to_avl_queue;
 		else if (p_game_ref->timeline_list_mode &&
 		(p_scheduler_instance->list_timeline_on = CW_TRUE))
+		{
 			ft_printf("Not supported feature yet, but soon\n");
+			exit(1);
+		}
 		else
 			p_scheduler_instance->cw_insert_process =
 				cw_insert_process_to_list;

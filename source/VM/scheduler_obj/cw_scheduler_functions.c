@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:24:27 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 17:12:17 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 20:08:45 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void		cw_timeline_execution_processes(
 	p_scheduler_instance->pa_timeline[cycle]->
 	cw_exec_processes(p_scheduler_instance->pa_timeline[cycle],
 	p_scheduler_instance->pa_timeline[cycle]->p_root);
+	p_scheduler_instance->pa_timeline[cycle]->p_root = NULL;
 	p_game_obj = NULL;
 }
 

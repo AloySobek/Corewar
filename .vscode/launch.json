@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/corewar",
-			"args": ["samples/champs/jumper.cor", "samples/champs/jumper.cor", "samples/champs/jumper.cor", "samples/champs/jumper.cor", "-t"],
+			"args": ["samples/champs/Gagnant.cor", "-t"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:27:20 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 16:43:58 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 19:37:34 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct		s_scheduler
 	t_counter		players_amount;
 	t_counter		processes_amount;
 
+	t_mark			*p_cycle_to_die;
 	t_player		*p_players_list;
 	t_process		*p_processes_list;
 

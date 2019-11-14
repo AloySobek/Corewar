@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:39:29 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 16:55:11 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 19:38:04 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int		cw_keys_parse(t_corewar *p_game_instance,
 								char **argv, int argc, int iter)
 {
 	SPI = CW_FALSE;
-	while (*++(argv[iter]) && !GA_DUMP_I && !GA_SELLOUT_I && !GA_STE_I)
+	while (*++(argv[iter]) && SPI == CW_FALSE)
 		if (*(argv[iter]) == 's' && iter + 1 < argc && (SPI = CW_TRUE))
 			p_game_instance->starting_cycle = ft_atoi(argv[iter + 1]);
 		else if (!ft_strcmp(argv[iter], "dump") && iter + 1 < argc && (SPI = 1))
@@ -107,6 +107,7 @@ static void		cw_arena_scheduler_command_obj_init(t_corewar *p_game_instance)
 	p_arena_obj->cw_buffer_init(p_arena_obj);
 	p_game_instance->p_arena_obj = p_arena_obj;
 	cw_create_instance_scheduler(&p_scheduler_obj);
+	p_scheduler_obj->p_cycle_to_die = &p_arena_obj->cycle_to_die;
 	p_game_instance->p_scheduler = p_scheduler_obj;
 	while (++iter < CW_COMMAND_AMOUNT)
 	{
