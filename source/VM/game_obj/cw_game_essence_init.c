@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:39:29 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/13 21:13:24 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 14:02:35 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int		cw_keys_parse(t_corewar *p_game_instance,
 	t_mark		pass;
 
 	pass = CW_FALSE;
-	while (*++(argv[iter]) && !GA_DUMP_I)
+	while (*++(argv[iter]) && !GA_DUMP_I && !GA_SELLOUT_I)
 		if (*(argv[iter]) == 's' && iter + 1 < argc && (pass = CW_TRUE))
 			p_game_instance->starting_cycle = ft_atoi(argv[iter + 1]);
 		else if (!ft_strcmp(argv[iter], "dump") && iter + 1 < argc && (pass = CW_TRUE))
@@ -50,6 +50,8 @@ static int		cw_keys_parse(t_corewar *p_game_instance,
 			p_game_instance->custom_id = ft_atoi(argv[iter + 1]);
 		else if (*(argv[iter]) == 'v' && iter + 1 < argc && (pass = CW_TRUE))
 			p_game_instance->verbose = ft_atoi(argv[iter + 1]);
+		else if (!ft_strcmp(argv[iter], "-sellout"))
+			p_game_instance->sellout = CW_TRUE;
 		else if (*(argv[iter]) == 't')
 			p_game_instance->timeline_avl_tree_mode = CW_TRUE;
 		else if (*(argv[iter]) == 'l')
