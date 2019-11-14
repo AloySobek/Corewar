@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 17:24:27 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/13 19:40:34 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:12:17 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,30 @@
 static void		cw_deadline(t_scheduler *p_scheduler_instance,
 								t_corewar *p_game_obj)
 {
-	t_iterator	check_point;
 	t_process	*iter;
 
 	iter = p_scheduler_instance->p_processes_list;
-	check_point = p_scheduler_instance->processes_amount;
+	ITER = p_scheduler_instance->processes_amount;
 	p_game_obj->p_arena_obj->check_amount += 1;
 	p_game_obj->last_check_cycle = p_game_obj->p_arena_obj->cycle;
-	while (check_point-- && iter)
+	while (ITER-- && iter && !(iter->p_owner->live_amount = 0))
 	{
-		iter ? iter->p_owner->live_amount = 0 : 0;
 		if (p_game_obj->AR_CYCLE_TO_DIE_O <= (p_game_obj->AR_CYCLE_O -
 		iter->last_speak_cycle) || p_game_obj->AR_CYCLE_TO_DIE_O <= 0)
+		{
 			p_scheduler_instance->cw_delete_process(p_scheduler_instance,
 				&iter, p_game_obj->AR_CYCLE_O);
+			iter && GA_VERBOSE_O == GA_SHOW_DEATH ? SC_TRACE : CW_FALSE;
+		}
 		else
 			iter ? iter = iter->p_next : CW_FALSE;
 	}
-	if (p_game_obj->AR_LIVE_AMOUNT_O >= NBR_LIVE ||
-	p_game_obj->AR_CHECK_AMOUNT_O >= MAX_CHECKS)
-	{
-		p_game_obj->AR_CYCLE_TO_DIE_O -= CYCLE_DELTA;
-		p_game_obj->AR_CHECK_AMOUNT_O = 0;
-	}
+	if ((p_game_obj->AR_LIVE_AMOUNT_O >= NBR_LIVE ||
+	p_game_obj->AR_CHECK_AMOUNT_O >= MAX_CHECKS) &&
+	(p_game_obj->AR_CYCLE_TO_DIE_O -= CYCLE_DELTA) > -10000 &&
+	!(p_game_obj->AR_CHECK_AMOUNT_O = 0))
+		if (GA_VERBOSE_O == GA_SHOW_CYCLES)
+			ft_printf("Cycle to die now %d\n", GA_ARENA_OBJ_O->cycle_to_die);
 	p_game_obj->AR_LIVE_AMOUNT_O = 0;
 }
 

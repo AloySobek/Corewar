@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cr_vis.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 13:55:06 by vrichese          #+#    #+#             */
 /*   Updated: 2019/11/14 16:06:57 by dbrady           ###   ########.fr       */

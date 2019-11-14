@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 18:27:20 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/13 19:42:53 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:43:58 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define SC_OBJ_NAME			"SCHEDULER"
 # define SC_OBJ_ERROR			"Memory for SCHEDULER has not been allocated"
 # define SC_TREE_ERROR			"Memory for AVL_TREE has not been allocated"
+# define SC_TRACE				ft_printf("Proc %d has been killed\n", iter->id)
 
 typedef struct		s_scheduler
 {

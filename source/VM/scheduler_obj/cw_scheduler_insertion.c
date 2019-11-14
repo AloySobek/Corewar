@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 14:46:34 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/13 19:46:29 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:15:47 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,6 @@ static void		cw_insert_process_to_avl_queue(
 	p_scheduler_instance->processes_amount += 1;
 }
 
-static void		cw_insert_process_to_list_queue(
-	t_scheduler *p_scheduler_instance, t_process *p_adding_process, int cycle)
-{
-	cw_error_catcher("NONE", "Not supported feature yet, but soon", "NONE", 0);
-	p_scheduler_instance = NULL;
-	p_adding_process = NULL;
-	cycle = 0;
-}
-
 extern void		cw_scheduler_insertion_linker(t_scheduler *p_scheduler_instance,
 												t_corewar *p_game_ref)
 {
@@ -128,8 +119,7 @@ extern void		cw_scheduler_insertion_linker(t_scheduler *p_scheduler_instance,
 				cw_insert_process_to_avl_queue;
 		else if (p_game_ref->timeline_list_mode &&
 		(p_scheduler_instance->list_timeline_on = CW_TRUE))
-			p_scheduler_instance->cw_insert_process =
-				cw_insert_process_to_list_queue;
+			ft_printf("Not supported feature yet, but soon\n");
 		else
 			p_scheduler_instance->cw_insert_process =
 				cw_insert_process_to_list;

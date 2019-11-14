@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/18 18:33:42 by vrichese          #+#    #+#              #
-#    Updated: 2019/11/14 14:16:01 by vrichese         ###   ########.fr        #
+#    Updated: 2019/11/14 17:06:23 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,16 +50,16 @@ VM_SOURCE		:=		cw_process_obj.c						\
 								cw_queue_avl_tree_functions.c	\
 						cw_main.c
 
-VIS_SOURCE		:=		cr_vis_box.c \
-						cr_vis_buildmap.c \
-						cr_vis_control.c \
-						cr_vis_init.c \
-						cr_vis_main.c \
-						cr_vis_printcar.c \
-						cr_vis_printhealth.c \
-						cr_vis_printinfo.c \
-						cr_vis_sound.c \
-						cr_vis_updatemap.c \
+VIS_SOURCE		:=		cr_vis_box.c		\
+						cr_vis_buildmap.c	\
+						cr_vis_control.c	\
+						cr_vis_init.c		\
+						cr_vis_main.c		\
+						cr_vis_printcar.c	\
+						cr_vis_printhealth.c\
+						cr_vis_printinfo.c	\
+						cr_vis_sound.c		\
+						cr_vis_updatemap.c	\
 						cr_vis_welcomescr.c \
 
 

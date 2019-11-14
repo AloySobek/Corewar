@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 14:57:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/13 13:52:53 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:46:46 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	live_exec(t_corewar *p_game_obj)
 				GA_ARENA_OBJ_O->p_winner = GA_SC_PL_O;
 			GA_SC_PL_O = GA_SC_PL_O->p_next;
 		}
+		if (GA_VERBOSE_O == GA_SHOW_LIVES)
+			ft_printf("Player %d (%s) is said to be alive\n",
+			GA_ARENA_OBJ_O->p_winner->id, GA_ARENA_OBJ_O->p_winner->p_name);
 		GA_ARENA_OBJ_O->p_winner->live_amount += 1;
 	}
 	GA_WORK_UNIT_O->last_speak_cycle = GA_ARENA_OBJ_O->cycle;

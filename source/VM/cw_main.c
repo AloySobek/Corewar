@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 21:09:41 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 14:28:55 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:12:12 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int				main(int argc, char **argv)
 	p_game_obj->cw_processes_obj_init(p_game_obj);
 	p_game_obj->cw_write_code_to_memory(p_game_obj);
 	p_game_obj->cw_introduce_players(p_game_obj);
-	if (p_game_obj->ncurses)
-		p_game_obj->cw_graphic_execution(p_game_obj);
-	else
-		p_game_obj->cw_start_execution(p_game_obj);
+	p_game_obj->ncurses ? p_game_obj->cw_graphic_execution(p_game_obj) :
+	p_game_obj->cw_start_execution(p_game_obj);
 	p_game_obj->cw_congratulations(p_game_obj);
 	p_game_obj->cw_destructor(&p_game_obj);
 	return (CW_SUCCESS);

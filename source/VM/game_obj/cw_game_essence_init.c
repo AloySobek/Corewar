@@ -6,7 +6,7 @@
 /*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:39:29 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 17:46:31 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/11/14 16:55:11 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void		cw_processes_obj_init(t_corewar *p_game_instance)
 	cw_scheduler_functions_linker(GA_SCHEDULER_I, p_game_instance);
 	if (GA_TREE_TIME_I || GA_LIST_TIME_I)
 		GA_SCHEDULER_I->cw_timeline_init(GA_SCHEDULER_I, p_game_instance);
+	GA_ARENA_OBJ_I->ncurses = GA_NCURSES_I;
 	while (++iter < GA_SCHEDULER_I->players_amount)
 	{
 		cw_create_instance_process(&p_process_obj);
@@ -38,24 +39,24 @@ static void		cw_processes_obj_init(t_corewar *p_game_instance)
 static int		cw_keys_parse(t_corewar *p_game_instance,
 								char **argv, int argc, int iter)
 {
-	t_mark		pass;
-
-	pass = CW_FALSE;
-	while (*++(argv[iter]) && !GA_DUMP_I && !GA_SELLOUT_I && !GA_STEALTH_I)
-		if (*(argv[iter]) == 's' && iter + 1 < argc && (pass = CW_TRUE))
+	SPI = CW_FALSE;
+	while (*++(argv[iter]) && !GA_DUMP_I && !GA_SELLOUT_I && !GA_STE_I)
+		if (*(argv[iter]) == 's' && iter + 1 < argc && (SPI = CW_TRUE))
 			p_game_instance->starting_cycle = ft_atoi(argv[iter + 1]);
-		else if (!ft_strcmp(argv[iter], "dump") && iter + 1 < argc && (pass = CW_TRUE))
+		else if (!ft_strcmp(argv[iter], "dump") && iter + 1 < argc && (SPI = 1))
 			p_game_instance->dump_cycle = ft_atoi(argv[iter + 1]);
-		else if (*(argv[iter]) == 'n' && iter + 1 < argc && (pass = CW_TRUE))
+		else if (*(argv[iter]) == 'n' && iter + 1 < argc && (SPI = CW_TRUE))
 			p_game_instance->custom_id = ft_atoi(argv[iter + 1]);
-		else if (*(argv[iter]) == 'v' && iter + 1 < argc && (pass = CW_TRUE))
+		else if (*(argv[iter]) == 'v' && iter + 1 < argc && (SPI = CW_TRUE))
 			p_game_instance->verbose = ft_atoi(argv[iter + 1]);
+		else if (!ft_strcmp(argv[iter], "-sellout"))
+			p_game_instance->sellout = CW_TRUE;
+		else if (!ft_strcmp(argv[iter], "-stealth"))
+			p_game_instance->stealth = CW_TRUE;
 		else if (*(argv[iter]) == 't')
 			p_game_instance->timeline_avl_tree_mode = CW_TRUE;
 		else if (*(argv[iter]) == 'l')
 			p_game_instance->timeline_list_mode = CW_TRUE;
-		else if (*(argv[iter]) == 'b')
-			p_game_instance->binary_output_mode = CW_TRUE;
 		else if (*(argv[iter]) == 'g')
 			p_game_instance->ncurses = CW_TRUE;
 		else if (*(argv[iter]) == 'a')
@@ -66,7 +67,7 @@ static int		cw_keys_parse(t_corewar *p_game_instance,
 			p_game_instance->stealth = CW_TRUE;
 		else
 			p_game_instance->cw_usage(p_game_instance);
-	return (pass);
+	return (SPI);
 }
 
 static void		cw_players_obj_init(t_corewar *p_game_instance, int c, char **v)
