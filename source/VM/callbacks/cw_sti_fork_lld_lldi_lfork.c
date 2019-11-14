@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_sti_fork_lld_lldi_lfork.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 19:45:28 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 14:09:38 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:23:27 by dbrady           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@ void	sti_exec(t_corewar *p_game_obj)
 			p_game_obj->AR_VALUE_BUF_1_O->p_data[GA_ITERATOR_O];
 		GA_WORK_UNIT_O->cw_move_to(GA_WORK_UNIT_O, 1);
 		if (p_game_obj->ncurses)
-			cr_vis_putx(p_game_obj->AR_VALUE_BUF_1_O->p_data[GA_ITERATOR_O], GA_WORK_UNIT_O->current_location, GA_WORK_UNIT_O->p_owner->id, 0);
+		{
+			if (!p_game_obj->stealth)
+				cr_vis_putx(p_game_obj->AR_VALUE_BUF_1_O->p_data[GA_ITERATOR_O], GA_WORK_UNIT_O->current_location, GA_WORK_UNIT_O->p_owner->id, 0);
+			else
+				cr_vis_printattr_stealth(GA_WORK_UNIT_O->current_location, GA_WORK_UNIT_O->p_owner->id, 0);
+		}
 	}
 	GA_WORK_UNIT_O->cw_carriage_return(GA_WORK_UNIT_O, PR_ADDIT_SAVE);
 }

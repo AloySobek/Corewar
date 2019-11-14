@@ -6,7 +6,7 @@
 /*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 16:14:01 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 14:51:21 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/11/14 16:25:34 by dbrady           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	cw_constructor(t_corewar **pp_game_instance)
 {
 	(*pp_game_instance)->ncurses = CW_FALSE;
+	(*pp_game_instance)->stealth = CW_FALSE;
 }
 
 static void	cw_destructor(t_corewar **pp_game_instance)

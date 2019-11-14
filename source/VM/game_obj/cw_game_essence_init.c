@@ -6,7 +6,7 @@
 /*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:39:29 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 16:02:09 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/11/14 17:46:31 by dbrady           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int		cw_keys_parse(t_corewar *p_game_instance,
 	t_mark		pass;
 
 	pass = CW_FALSE;
-	while (*++(argv[iter]) && !GA_DUMP_I && !GA_SELLOUT_I)
+	while (*++(argv[iter]) && !GA_DUMP_I && !GA_SELLOUT_I && !GA_STEALTH_I)
 		if (*(argv[iter]) == 's' && iter + 1 < argc && (pass = CW_TRUE))
 			p_game_instance->starting_cycle = ft_atoi(argv[iter + 1]);
 		else if (!ft_strcmp(argv[iter], "dump") && iter + 1 < argc && (pass = CW_TRUE))

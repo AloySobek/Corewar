@@ -6,7 +6,7 @@
 /*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 17:52:16 by dbrady            #+#    #+#             */
-/*   Updated: 2019/11/14 16:10:42 by dbrady           ###   ########.fr       */
+/*   Updated: 2019/11/14 17:43:50 by dbrady           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			cr_vis_printattr_stealth(int i, int colour, int reverse)
 		attron(A_REVERSE);
 	mvprintw(	(i * 3) / (V_SEP - 8) + 2,
 				(i * 3) % (V_SEP - 8) + 5,
-				"\xe2\x96\xa3\xe2\x96\xa3"	);
+				"\xe2\x96\xa3\xe2\x96\xa3");
 	if (colour)
 		attroff(COLOR_PAIR(colour));
 	if (reverse)
@@ -81,7 +81,7 @@ int			cr_vis_printmap(unsigned char *f, int f_len, t_corewar *cr)
 	cr_vis_buildbox(V_LEFT);
 	while (i < f_len)
 	{
-		if (cr->stealth)
+		if (!cr->stealth)
 			cr_vis_putx(f[i], i, cr_vis_getcolour(i, cr), 0);
 		else
 			cr_vis_printattr_stealth(i, cr_vis_getcolour(i, cr), 0);
