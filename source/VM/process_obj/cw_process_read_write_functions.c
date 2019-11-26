@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cw_process_read_write_functions.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:10:45 by vrichese          #+#    #+#             */
 /*   Updated: 2019/11/14 15:52:39 by vrichese         ###   ########.fr       */

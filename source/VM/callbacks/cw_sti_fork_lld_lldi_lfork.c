@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cw_sti_fork_lld_lldi_lfork.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 19:45:28 by vrichese          #+#    #+#             */
 /*   Updated: 2019/11/14 16:59:33 by vrichese         ###   ########.fr       */

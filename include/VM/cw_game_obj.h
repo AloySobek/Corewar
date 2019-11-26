@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cw_game_obj.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:15:38 by vrichese          #+#    #+#             */
 /*   Updated: 2019/11/14 17:03:57 by vrichese         ###   ########.fr       */
@@ -73,6 +73,10 @@
 
 # define GA_WRITING_MODE	1
 # define GA_INTRO_MODE		-1
+# define GA_SHOW_LIVES		1
+# define GA_SHOW_CYCLES		2
+# define GA_SHOW_OPER		4
+# define GA_SHOW_DEATH		8
 
 # define GA_SHOW_LIVES		1
 # define GA_SHOW_CYCLES		2

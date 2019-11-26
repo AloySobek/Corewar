@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cw_arena_obj.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:07:10 by vrichese          #+#    #+#             */
 /*   Updated: 2019/11/14 15:52:00 by vrichese         ###   ########.fr       */

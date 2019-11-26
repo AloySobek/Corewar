@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 13:55:06 by vrichese          #+#    #+#             */
-/*   Updated: 2019/11/14 15:49:08 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:06:57 by dbrady           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define V_BSYM "\xe2\x96\x88"
 # define V_BHALF "\xe2\x96\x93"
 # define V_BQUARTER "\xe2\x96\x91"
+# define V_STEALTH "\xe2\x96\xa3"
 
 
 /*
@@ -107,6 +108,7 @@ int							cr_vis_printhealth			(t_corewar *cr);
 int							cr_vis_lastlive				(t_corewar *cr, int id);
 void						cr_vis_sound				(t_vis *vis, int piece);
 void						cr_vis_sound_sellout		(t_corewar *cr);
+int							cr_vis_printattr_stealth	(int i, int colour, int reverse);
 
 /*
 ** ---------------------------

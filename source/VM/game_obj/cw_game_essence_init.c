@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cw_game_essence_init.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbrady <dbrady@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:39:29 by vrichese          #+#    #+#             */
 /*   Updated: 2019/11/14 19:38:04 by vrichese         ###   ########.fr       */
@@ -61,6 +61,10 @@ static int		cw_keys_parse(t_corewar *p_game_instance,
 			p_game_instance->ncurses = CW_TRUE;
 		else if (*(argv[iter]) == 'a')
 			p_game_instance->aff_hide = CW_TRUE;
+		else if (!ft_strcmp(argv[iter], "-sellout"))
+			p_game_instance->sellout = CW_TRUE;
+		else if (!ft_strcmp(argv[iter], "-stealth"))
+			p_game_instance->stealth = CW_TRUE;
 		else
 			p_game_instance->cw_usage(p_game_instance);
 	return (SPI);
